@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: localhost
--- Thời gian đã tạo: Th5 30, 2024 lúc 09:45 AM
+-- Thời gian đã tạo: Th5 31, 2024 lúc 07:21 AM
 -- Phiên bản máy phục vụ: 8.0.17
 -- Phiên bản PHP: 7.3.10
 
@@ -44,38 +44,16 @@ INSERT INTO `tbl_admin` (`id_admin`, `username`, `password`) VALUES
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `tbl_cart_detail`
+-- Cấu trúc bảng cho bảng `tbl_cart_items`
 --
 
-CREATE TABLE `tbl_cart_detail` (
-  `id_cart_detail` int(11) NOT NULL,
-  `code_cart` varchar(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+CREATE TABLE `tbl_cart_items` (
+  `cart_item_id` int(11) NOT NULL,
+  `id_giohang` int(11) NOT NULL,
   `id_sanpham` int(11) NOT NULL,
-  `soluongmua` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Đang đổ dữ liệu cho bảng `tbl_cart_detail`
---
-
-INSERT INTO `tbl_cart_detail` (`id_cart_detail`, `code_cart`, `id_sanpham`, `soluongmua`) VALUES
-(28, '4095', 8, 2),
-(29, '4095', 7, 1),
-(34, '4469', 12, 1),
-(35, '4469', 13, 1),
-(36, '6875', 12, 1),
-(37, '6875', 13, 1),
-(38, '3524', 12, 1),
-(39, '3524', 13, 1),
-(40, '8326', 14, 1),
-(41, '8326', 16, 1),
-(42, '6272', 24, 3),
-(43, '6272', 23, 1),
-(44, '9166', 14, 1),
-(45, '3429', 24, 1),
-(46, '6167', 31, 1),
-(47, '6167', 24, 1),
-(48, '6167', 20, 1);
+  `soluongmua` int(11) NOT NULL,
+  `gia` float NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -127,84 +105,48 @@ INSERT INTO `tbl_danhmuc` (`id_danhmuc`, `tendanhmuc`, `banner`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Cấu trúc bảng cho bảng `tbl_donhang`
+--
+
+CREATE TABLE `tbl_donhang` (
+  `order_id` int(11) NOT NULL,
+  `id_khachhang` int(11) NOT NULL,
+  `tonggia` float NOT NULL,
+  `cart_payment` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `hoten` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `diachi` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `sdt` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `tbl_donhang`
+--
+
+INSERT INTO `tbl_donhang` (`order_id`, `id_khachhang`, `tonggia`, `cart_payment`, `hoten`, `diachi`, `sdt`) VALUES
+(13, 10, 1700000, 'Chuyển khoản', 'Nguyễn Hoàng Việt', '', 123456789),
+(14, 10, 3400000, 'Tiền mặt', 'Nguyễn Hoàng Việt', '', 123456789),
+(15, 10, 35089000, 'Tiền mặt', 'Nguyễn Hoàng Việt', '', 123456789),
+(16, 10, 3300000, 'Tiền mặt', 'Nguyễn Hoàng Việt', '02, 028, 00835', 123456789),
+(17, 10, 0, 'Tiền mặt', 'Nguyễn Hoàng Việt', '30, 290, 10603', 123456789),
+(18, 10, 0, 'Tiền mặt', 'Nguyễn Hoàng Việt', 'Tỉnh Hà Giang, Huyện Mèo Vạc, Xã Xín Cái', 123456789);
+
+-- --------------------------------------------------------
+
+--
 -- Cấu trúc bảng cho bảng `tbl_giohang`
 --
 
 CREATE TABLE `tbl_giohang` (
-  `id_cart` int(11) NOT NULL,
-  `id_khachhang` int(11) NOT NULL,
-  `code_cart` varchar(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `cart_status` int(11) NOT NULL,
-  `cart_payment` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `id_giohang` int(11) NOT NULL,
+  `id_khachhang` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `tbl_giohang`
 --
 
-INSERT INTO `tbl_giohang` (`id_cart`, `id_khachhang`, `code_cart`, `cart_status`, `cart_payment`) VALUES
-(36, 3, '6875', 1, 'tienmat'),
-(37, 3, '3524', 1, 'Chuyển Khoảng'),
-(38, 9, '8326', 1, 'Tiền Mặt'),
-(39, 10, '55', 1, 'tienmat'),
-(40, 10, '2958', 1, 'tienmat'),
-(41, 10, '8342', 1, 'tienmat'),
-(42, 10, '7679', 1, 'tienmat'),
-(43, 10, '6272', 1, 'tienmat'),
-(44, 11, '9166', 1, 'tienmat'),
-(45, 11, '6732', 1, 'tienmat'),
-(46, 11, '4767', 1, 'tienmat'),
-(47, 11, '2791', 1, 'tienmat'),
-(48, 11, '7095', 1, 'tienmat'),
-(49, 11, '9214', 1, 'tienmat'),
-(50, 11, '9601', 1, 'tienmat'),
-(51, 11, '3053', 1, 'tienmat'),
-(52, 11, '9273', 1, 'tienmat'),
-(53, 11, '7318', 1, 'tienmat'),
-(54, 11, '929', 1, 'tienmat'),
-(55, 11, '3048', 1, 'tienmat'),
-(56, 11, '9040', 1, 'tienmat'),
-(57, 11, '6899', 1, 'tienmat'),
-(58, 11, '2607', 1, 'tienmat'),
-(59, 11, '7030', 1, 'tienmat'),
-(60, 11, '6104', 1, 'tienmat'),
-(61, 11, '221', 1, 'tienmat'),
-(62, 11, '594', 1, 'tienmat'),
-(63, 11, '2328', 1, 'tienmat'),
-(64, 11, '6673', 1, 'tienmat'),
-(65, 11, '8529', 1, 'tienmat'),
-(66, 11, '4006', 1, 'tienmat'),
-(67, 11, '9813', 1, 'tienmat'),
-(68, 11, '5022', 1, 'tienmat'),
-(69, 11, '7993', 1, 'tienmat'),
-(70, 11, '9715', 1, 'tienmat'),
-(71, 11, '9602', 1, 'tienmat'),
-(72, 11, '5835', 1, 'tienmat'),
-(73, 11, '7481', 1, 'tienmat'),
-(74, 11, '3836', 1, 'tienmat'),
-(75, 11, '1934', 1, 'tienmat'),
-(76, 11, '9781', 1, 'tienmat'),
-(77, 11, '4081', 1, 'tienmat'),
-(78, 11, '8162', 1, 'tienmat'),
-(79, 11, '5120', 1, 'tienmat'),
-(80, 11, '8502', 1, 'tienmat'),
-(81, 11, '8948', 1, 'tienmat'),
-(82, 11, '3429', 1, 'tienmat'),
-(83, 11, '3072', 1, 'tienmat'),
-(84, 11, '6114', 1, 'tienmat'),
-(85, 11, '2866', 1, 'tienmat'),
-(86, 11, '7241', 1, 'tienmat'),
-(87, 11, '887', 1, 'tienmat'),
-(88, 11, '7599', 1, 'tienmat'),
-(89, 11, '1161', 1, 'tienmat'),
-(90, 11, '197', 1, 'tienmat'),
-(91, 11, '4889', 1, 'tienmat'),
-(92, 11, '3100', 1, 'tienmat'),
-(93, 0, '233', 1, 'tienmat'),
-(94, 0, '3666', 1, 'tienmat'),
-(95, 0, '8259', 1, 'tienmat'),
-(96, 0, '7628', 1, 'tienmat'),
-(97, 0, '6167', 1, 'tienmat');
+INSERT INTO `tbl_giohang` (`id_giohang`, `id_khachhang`) VALUES
+(5, 10);
 
 -- --------------------------------------------------------
 
@@ -239,7 +181,7 @@ INSERT INTO `tbl_sanpham` (`id_sanpham`, `tensanpham`, `masanpham`, `giasanpham`
 (12, 'Đồng hồ G-Shock Z123', 'MTBJG', 3500000, 1, 'g-shock-gba-900-1a6dr-nam-1.jpg', 'Sản phẩm đồng hồ mang thương hiệu MVW với nhiều mẫu mã năng động, trẻ trung nhưng không kém phần tinh tế và sang trọng, phù hợp với tất cả mọi người hoạt động ở nhiều lĩnh vực từ dân văn ph', '', 1, 0),
 (13, 'Đồng hồ SamSung A7', 'MHCBKOMI', 700000, 2, 'beu-active-1-2-1.jpg', 'Sản phẩm đồng hồ mang thương hiệu MVW với nhiều mẫu mã năng động, trẻ trung nhưng không kém phần tinh tế và sang trọng, phù hợp với tất cả mọi người hoạt động ở nhiều lĩnh vực từ dân văn ph', '', 1, 1),
 (14, 'Đồng hồ Apple Watch 5.0 Seris', 'MHGSBARA', 1700000, 2, 'beu-b3-den-1.jpg', 'Sản phẩm đồng hồ mang thương hiệu MVW với nhiều mẫu mã năng động, trẻ trung nhưng không kém phần tinh tế và sang trọng, phù hợp với tất cả mọi người hoạt động ở nhiều lĩnh vực từ dân văn ph', '', 1, 1),
-(15, 'Đồng hồ thông minh Smart Watch 2', 'MHSAWH', 1600000, 1, 'beu-pt1-den-thumb-1-1-600x600.jpg', 'Sản phẩm đồng hồ mang thương hiệu MVW với nhiều mẫu mã năng động, trẻ trung nhưng không kém phần tinh tế và sang trọng, phù hợp với tất cả mọi người hoạt động ở nhiều lĩnh vực từ dân văn ph', '', 2, 1),
+(15, 'Đồng hồ thông minh Smart Watch 2', 'MHSAWH', 1600000, 27, 'beu-pt1-den-thumb-1-1-600x600.jpg', 'Sản phẩm đồng hồ mang thương hiệu MVW với nhiều mẫu mã năng động, trẻ trung nhưng không kém phần tinh tế và sang trọng, phù hợp với tất cả mọi người hoạt động ở nhiều lĩnh vực từ dân văn ph', '', 2, 1),
 (16, 'Đồng hồ Rolex Thụy Sĩ', 'MHCBMATSURI', 15000000, 1, 'dong-ho-nam-citizen-bi5051-51a-trang-ga-1-org.jpg', 'Sản phẩm đồng hồ mang thương hiệu MVW với nhiều mẫu mã năng động, trẻ trung không kém phần tinh tế và sang trọng, phù hợp với tất cả mọi người hoạt động ở nhiều lĩnh vực từ dân văn phòng', '', 2, 0),
 (17, 'Đồng hồ thông minh Smart Watch 2', 'asdfdf', 13990000, 12, 'befit-b3-vang-1.jpg', 'Sản phẩm đồng hồ mang thương hiệu MVW với nhiều mẫu mã năng động, trẻ trung không kém phần tinh tế và sang trọng, phù hợp với tất cả mọi người hoạt động ở nhiều lĩnh vực', '', 1, 0),
 (18, 'Đồng hồ G-Shock Z123', 'fsddf', 2990000, 5, 'beu-pt1-den-thumb-1-1-600x600.jpg', 'Sản phẩm đồng hồ mang thương hiệu MVW với nhiều mẫu mã năng động, trẻ trung không kém phần tinh tế và sang trọng, phù hợp với tất cả mọi người hoạt động ở nhiều lĩnh vực', '', 2, 0),
@@ -248,34 +190,8 @@ INSERT INTO `tbl_sanpham` (`id_sanpham`, `tensanpham`, `masanpham`, `giasanpham`
 (21, '1', '', 0, 0, 'blog_3.jpg', '', '', 0, 0),
 (22, '1', '', 0, 1, 'banner_2.jpg', '1', '1', 2, 1),
 (23, '2', '', 0, 2, 'banner_3.jpg', '2', '2', 2, 1),
-(24, '3', '', 5, 3, 'banner_1.jpg', '3', '3', 12, 1),
+(24, '3', '', 5, 6, 'banner_1.jpg', '3', '3', 12, 1),
 (31, 'ddsadsa', 'dsa', 0, 0, 'Screenshot 2024-02-26 145742.png', 'dsa', '', 12, 1);
-
--- --------------------------------------------------------
-
---
--- Cấu trúc bảng cho bảng `tbl_shipping`
---
-
-CREATE TABLE `tbl_shipping` (
-  `id_shipping` int(11) NOT NULL,
-  `name` varchar(100) NOT NULL,
-  `phone` varchar(20) NOT NULL,
-  `adress` varchar(250) NOT NULL,
-  `note` varchar(250) NOT NULL,
-  `id_dangky` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Đang đổ dữ liệu cho bảng `tbl_shipping`
---
-
-INSERT INTO `tbl_shipping` (`id_shipping`, `name`, `phone`, `adress`, `note`, `id_dangky`) VALUES
-(1, '', '', '', '', 3),
-(2, '', '', '', '', 3),
-(3, 'nguyễn Minh Tâm', '05658421', '23/C', '', 1),
-(4, 'Pham Anh Vinh', '', '', '', 3),
-(5, 'Pham Anh Vinh', '', '', '', 3);
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -288,10 +204,10 @@ ALTER TABLE `tbl_admin`
   ADD PRIMARY KEY (`id_admin`);
 
 --
--- Chỉ mục cho bảng `tbl_cart_detail`
+-- Chỉ mục cho bảng `tbl_cart_items`
 --
-ALTER TABLE `tbl_cart_detail`
-  ADD PRIMARY KEY (`id_cart_detail`);
+ALTER TABLE `tbl_cart_items`
+  ADD PRIMARY KEY (`cart_item_id`);
 
 --
 -- Chỉ mục cho bảng `tbl_dangky`
@@ -306,22 +222,22 @@ ALTER TABLE `tbl_danhmuc`
   ADD PRIMARY KEY (`id_danhmuc`);
 
 --
+-- Chỉ mục cho bảng `tbl_donhang`
+--
+ALTER TABLE `tbl_donhang`
+  ADD PRIMARY KEY (`order_id`);
+
+--
 -- Chỉ mục cho bảng `tbl_giohang`
 --
 ALTER TABLE `tbl_giohang`
-  ADD PRIMARY KEY (`id_cart`);
+  ADD PRIMARY KEY (`id_giohang`);
 
 --
 -- Chỉ mục cho bảng `tbl_sanpham`
 --
 ALTER TABLE `tbl_sanpham`
   ADD PRIMARY KEY (`id_sanpham`);
-
---
--- Chỉ mục cho bảng `tbl_shipping`
---
-ALTER TABLE `tbl_shipping`
-  ADD PRIMARY KEY (`id_shipping`);
 
 --
 -- AUTO_INCREMENT cho các bảng đã đổ
@@ -334,10 +250,10 @@ ALTER TABLE `tbl_admin`
   MODIFY `id_admin` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT cho bảng `tbl_cart_detail`
+-- AUTO_INCREMENT cho bảng `tbl_cart_items`
 --
-ALTER TABLE `tbl_cart_detail`
-  MODIFY `id_cart_detail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
+ALTER TABLE `tbl_cart_items`
+  MODIFY `cart_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT cho bảng `tbl_dangky`
@@ -352,22 +268,22 @@ ALTER TABLE `tbl_danhmuc`
   MODIFY `id_danhmuc` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
+-- AUTO_INCREMENT cho bảng `tbl_donhang`
+--
+ALTER TABLE `tbl_donhang`
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+
+--
 -- AUTO_INCREMENT cho bảng `tbl_giohang`
 --
 ALTER TABLE `tbl_giohang`
-  MODIFY `id_cart` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=98;
+  MODIFY `id_giohang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT cho bảng `tbl_sanpham`
 --
 ALTER TABLE `tbl_sanpham`
   MODIFY `id_sanpham` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
-
---
--- AUTO_INCREMENT cho bảng `tbl_shipping`
---
-ALTER TABLE `tbl_shipping`
-  MODIFY `id_shipping` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
