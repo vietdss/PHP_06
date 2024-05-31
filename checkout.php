@@ -42,6 +42,11 @@ if (isset($_POST['thanhtoan'])) {
 
 	$sql_themdonhang = "INSERT INTO tbl_donhang (id_khachhang,tonggia,cart_payment,hoten,diachi,sdt) VALUES ('$_SESSION[id_khachhang]','$tonggia', '$_POST[phuongthuc]','$_POST[hoten]','$diachi','$_POST[sdt]')";
 	$conn->query($sql_themdonhang);
+	$order_id = $conn->insert_id;
+	foreach ($result_chitiet as $row) {
+		$sql_themdonhangchitiet = "INSERT INTO tbl_chitietdonhang (id_order,id_sanpham,soluongmua) VALUES ('$order_id','$row[id_sanpham]','$row[soluongmua]')";
+		$conn->query($sql_themdonhangchitiet);
+	}
 	$sql_xoa = "DELETE FROM tbl_cart_items WHERE id_giohang='$row_giohang[id_giohang]'";
 	$conn->query($sql_xoa);
 	header("Location:index.php");

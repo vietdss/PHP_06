@@ -1,6 +1,6 @@
 <?php
 include("./config/connect.php");
-$sql = "SELECT * FROM tbl_donhang";
+$sql = "SELECT * FROM tbl_chitietdonhang WHERE id_order= $_GET[order_id]";
 $result = $conn->query($sql);
 
 ?>
@@ -11,12 +11,12 @@ $result = $conn->query($sql);
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Quản lý danh mục</h1>
+            <h1>Quản lý đơn hàng</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-              <li class="breadcrumb-item active">Quản lý đơn hàng</li>
+              <li class="breadcrumb-item active">Chi tiết đơn hàng</li>
             </ol>
           </div>
         </div>
@@ -29,7 +29,7 @@ $result = $conn->query($sql);
       <!-- Default box -->
       <div class="card">
         <div class="card-header">
-          <h3 class="card-title">Danh sách đơn hàng</h3>
+          <h3 class="card-title">Chi tiết đơn hàng</h3>
           <div class="card-tools">
             </div> 
          
@@ -40,29 +40,25 @@ $result = $conn->query($sql);
                 <thead>
                     <tr>
                         <td>ID</td>
-                        <td>Tên khách hàng</td>
-                        <td>Địa chỉ</td>
-                        <td>Số điện thoại</td>
-                        <td>Tổng giá</td>
-                        <td>Phương thức thanh toán</td>
-                        <td></td>
+                        <td>Tên sản phẩm</td>
+                        <td>Hình ảnh</td>
+                        <td>Số lượng</td>
                     </tr>
 
                 </thead>
                 <tbody>                 
                 <?php                
-                foreach ($result as $row) {?>
+                foreach ($result as $row) {
+                    $sql_sanpham = "SELECT * FROM tbl_sanpham WHERE id_sanpham=$row[id_sanpham]";
+                    $result_sanpham=$conn->query($sql_sanpham);
+                    $sanpham = $result_sanpham->fetch_assoc();
+                    ?>
                     <tr>
-                    <td><?php echo $row['order_id']?></td>
-                    <td><?php echo $row['hoten']?></td>
-                    <td><?php echo $row['diachi']?></td>
-                    <td><?php echo $row['sdt']?></td>
-                    <td><?php echo $row['tonggia']?></td>
-                    <td><?php echo $row['cart_payment']?></td>
-                    <td>
-                    <a href='?action=chitietdonhang&order_id=<?php echo $row['order_id']?>'class='btn btn-sm btn-primary'>Chi tiết</a>
-                    <a href="modules/quanlydonhang/delete.php?order_id=<?php echo $row['order_id']?>" class='btn btn-sm btn-danger btnDelete'>Xóa</a>
-                    </td>
+                    <td><?php echo $row['id_order_detail']?></td>
+                    <td><?php echo $sanpham['tensanpham']?></td>
+                    <td><img  src='../images/<?php echo $sanpham['hinhanh']?>' width='50'></td>
+                    <td><?php echo $sanpham['soluong']?></td>
+                   
                     </tr>
                 <?php
                 }

@@ -24,6 +24,9 @@
         if($action == "quanlydonhang"){
             include("quanlydonhang/index.php");
         }
+        if($action == "chitietdonhang"){
+            include("quanlydonhang/chitietdonhang.php");
+        }
         if($action == "quanlynguoidung"){
             include("quanlynguoidung/index.php");
         }
