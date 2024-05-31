@@ -2,16 +2,10 @@
 include("admincp/config/connect.php");
 $sql_danhmuc = "SELECT * FROM tbl_danhmuc";
 $query_danhmuc = $conn->query($sql_danhmuc);
-if (isset($_GET['category'])) {
-	$category = $_GET['category'];
-	$sql_show_sanpham = "SELECT * FROM tbl_sanpham,tbl_danhmuc WHERE tbl_sanpham.id_danhmuc=tbl_danhmuc.id_danhmuc AND tbl_danhmuc.tendanhmuc = '$category' ORDER BY tbl_sanpham.id_sanpham DESC";
+$query= $_GET['query'];
 
-}
-else{
-	$category = "All";
-	$sql_show_sanpham = "SELECT * FROM tbl_sanpham,tbl_danhmuc WHERE tbl_sanpham.id_danhmuc=tbl_danhmuc.id_danhmuc ORDER BY tbl_sanpham.id_sanpham DESC";
-	
-}
+$sql_show_sanpham = "SELECT * FROM tbl_sanpham,tbl_danhmuc WHERE tbl_sanpham.id_danhmuc=tbl_danhmuc.id_danhmuc AND tbl_sanpham.tensanpham LIKE '%$query%' ORDER BY tbl_sanpham.id_sanpham DESC";
+
 $query_show_sanpham = $conn->query($sql_show_sanpham);
 
 ?>
@@ -81,8 +75,7 @@ $query_show_sanpham = $conn->query($sql_show_sanpham);
 
 					<div class="breadcrumbs d-flex flex-row align-items-center">
 						<ul>
-							<li><a href="index.php">Home</a></li>
-							<li class="active"><i class="fa fa-angle-right" aria-hidden="true"></i><?php echo $category ?></li>
+							<li>Từ khóa tìm kiếm: <?php echo $query?></li>
 						</ul>
 					</div>
 

@@ -60,7 +60,7 @@ include("admincp/config/connect.php");
                             <table class="table table-hover">
                                 <thead>
                                     <tr>
-                                        <td>Tên sản phảm</td>
+                                        <td>Tên sản phẩm</td>
                                         <td>Hình ảnh </td>
                                         <td>Giá</td>
                                         <td>Số lượng</td>
@@ -74,13 +74,16 @@ include("admincp/config/connect.php");
 
                                     <?php
                                     foreach ($result_chitiet as $cart_item) {
+                                        $sql_sanpham = "SELECT * FROM tbl_sanpham WHERE id_sanpham='" . $cart_item['id_sanpham'] . "' LIMIT 1";
+										$result_sanpham = $conn->query($sql_sanpham);
+										$row_sanpham = $result_sanpham->fetch_assoc();
                                         $tonggia = $cart_item['soluong'] * $cart_item['giasanpham'];
                                         $tongcong += $cart_item['gia'];
                                     ?>
                                         <tr>
-                                            <td><?php echo $cart_item['tensanpham'] ?></td>
-                                            <td><img src='images/<?php echo $cart_item['hinhanh'] ?>' width='50'></td>
-                                            <td><?php echo $cart_item['giasanpham'] ?></td>
+                                            <td><?php echo $row_sanpham['tensanpham'] ?></td>
+                                            <td><img src='images/<?php echo $row_sanpham['hinhanh'] ?>' width='50'></td>
+                                            <td><?php echo $row_sanpham['giasanpham'] ?></td>
                                             <td>
                                                 <div class="quantity_max1" hidden="true"><?php echo $row['soluongmua'] ?></div>
                                                 <a class="minus1" href="cart/edit.php?tru=<?php echo $cart_item['id_sanpham'] ?>"><i class="fa fa-minus" aria-hidden="true"></i></a>

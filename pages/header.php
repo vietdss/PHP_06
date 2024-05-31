@@ -1,5 +1,63 @@
-<!-- Header -->
+<?php
 
+session_start();
+include("admincp/config/connect.php");
+$id_khachhang = $_SESSION['id_khachhang'];
+$sql_khachhang = "SELECT * FROM tbl_dangky WHERE id_khachhang='" . $_SESSION['id_khachhang'] . "' LIMIT 1";
+$result_khachhang = $conn->query($sql_khachhang);
+$khachhang = $result_khachhang->fetch_assoc();
+$sql_giohang = "SELECT * FROM tbl_giohang WHERE id_khachhang='" . $_SESSION['id_khachhang'] . "' LIMIT 1";
+$result_giohang = $conn->query($sql_giohang);
+$sql_sanpham = "SELECT * FROM tbl_sanpham WHERE id_sanpham='" . $id . "' LIMIT 1";
+$result_sanpham = $conn->query($sql_sanpham);
+$row_giohang = $result_giohang->fetch_assoc();
+$sql_chitiet = "SELECT * FROM tbl_cart_items WHERE id_giohang='$row_giohang[id_giohang]'";
+$result_chitiet = $conn->query($sql_chitiet);
+?>
+<style>
+    .search {
+        position: relative;
+        box-shadow: 0 0 40px rgba(51, 51, 51, .1);
+        
+    }
+
+    .search input {
+
+        height: 60px;
+        text-indent: 25px;
+        border: 2px solid #d6d4d4;
+
+
+    }
+
+
+    .search input:focus {
+
+        box-shadow: none;
+        border: 2px solid blue;
+
+
+    }
+
+    .search .fa-search {
+
+        position: absolute;
+        top: 20px;
+        left: 16px;
+
+    }
+
+    .search button {
+       
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        height: 50px;
+        width: 110px;
+        background: blue;
+
+    }
+</style>
 <header class="header trans_300">
 
     <!-- Top Navigation -->
@@ -16,30 +74,8 @@
 
                             <!-- Currency / Language / My Account -->
 
-                            <li class="currency">
-                                <a href="#">
-                                    usd
-                                    <i class="fa fa-angle-down"></i>
-                                </a>
-                                <ul class="currency_selection">
-                                    <li><a href="#">cad</a></li>
-                                    <li><a href="#">aud</a></li>
-                                    <li><a href="#">eur</a></li>
-                                    <li><a href="#">gbp</a></li>
-                                </ul>
-                            </li>
-                            <li class="language">
-                                <a href="#">
-                                    English
-                                    <i class="fa fa-angle-down"></i>
-                                </a>
-                                <ul class="language_selection">
-                                    <li><a href="#">French</a></li>
-                                    <li><a href="#">Italian</a></li>
-                                    <li><a href="#">German</a></li>
-                                    <li><a href="#">Spanish</a></li>
-                                </ul>
-                            </li>
+
+
                             <li class="account">
                                 <?php
                                 if (isset($_SESSION['dangnhap'])) {
@@ -49,9 +85,7 @@
                                         <i class="fa fa-angle-down"></i>
                                     </a>
                                     <ul class="account_selection">
-                                        <li><a href="register.php"><i class="fa fa-user-plus"></i>Tài khoản của tôi</a></li>
                                         <li><a href="logout.php?dangxuat=1"><i class="fa fa-sign-in" aria-hidden="true"></i>Đăng xuất</a></li>
-
                                     </ul>
                                 <?php
                                 } else {
@@ -78,42 +112,40 @@
     </div>
 
     <!-- Main Navigation -->
-
     <div class="main_nav_container">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-right">
-                    <div class="logo_container">
-                        <a href="#">colo<span>shop</span></a>
-                    </div>
-                    <nav class="navbar">
-                        <ul class="navbar_menu">
-                            <li><a href="index.php">Trang chủ</a></li>
-                            <li><a href="product_categories.php">Sản phẩm</a></li>
-                            <li><a href="cart.php">Giỏ hàng</a></li>
-                            <li><a href="#">pages</a></li>
-                            <li><a href="#">blog</a></li>
-                            <li><a href="contact.html">contact</a></li>
-                        </ul>
-                        <ul class="navbar_user">
-                            <li><a href="#"><i class="fa fa-search" aria-hidden="true"></i></a></li>
-                            <li><a href="#"><i class="fa fa-user" aria-hidden="true"></i></a></li>
-                            <li class="checkout">
-                                <a href="#">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12 text-right">
+						<div class="logo_container">
+                        <a href="index.php">colo<span>shop</span></a>
+						</div>
+						<nav class="navbar">
+							<ul class="navbar_menu">
+								<li><form method="get" action="product_search.php" style="display: flex;">
+                            <input class="form-control mr-sm-2" type="text" name="query" placeholder="Search">
+                            <button style=" background-color: #fe4c50; border: none; cursor: pointer;" class="btn btn-success my-2 my-sm-0" type="submit">Search</button>
+                        </form></li>
+								
+							</ul>
+							<ul class="navbar_user">
+								
+								<li><a href="#"><i class="fa fa-user" aria-hidden="true"></i></a></li>
+                                <li class="checkout">
+                                <a href="cart.php">
                                     <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                                    <span id="checkout_items" class="checkout_items">2</span>
+                                    <span id="checkout_items" class="checkout_items"><?php echo $result_chitiet->num_rows ?></span>
                                 </a>
                             </li>
-                        </ul>
-                        <div class="hamburger_container">
-                            <i class="fa fa-bars" aria-hidden="true"></i>
-                        </div>
-                    </nav>
-                </div>
-            </div>
-        </div>
-    </div>
-
+							</ul>
+							<div class="hamburger_container">
+								<i class="fa fa-bars" aria-hidden="true"></i>
+							</div>
+						</nav>
+					</div>
+				</div>
+			</div>
+		</div>
+   
 </header>
 
 <div class="fs_menu_overlay"></div>

@@ -4,7 +4,7 @@ include('config/connect.php');
 if (isset($_POST['login'])) {
     $taikhoan = $_POST['username'];
     $matkhau = $_POST['password'];
-    $sql = "SELECT * FROM tbl_dangky ,tbl_admin WHERE (tbl_dangky.taikhoan='" . $taikhoan . "' AND tbl_dangky.matkhau='" . $matkhau . "' AND tbl_dangky.chucvu=1) OR (tbl_admin.username='" . $taikhoan . "' AND tbl_admin.password='" . $matkhau . "' ) LIMIT 1";
+    $sql = "SELECT * FROM tbl_admin WHERE tbl_admin.username='" . $taikhoan . "' AND tbl_admin.password='" . $matkhau . "'  LIMIT 1";
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {
