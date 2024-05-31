@@ -2,7 +2,13 @@
 session_start();
 
 include("admincp/config/connect.php");
-
+    $sql_giohang = "SELECT * FROM tbl_giohang WHERE id_khachhang='" . $_SESSION['id_khachhang'] . "' LIMIT 1";
+	$result_giohang = $conn->query($sql_giohang);
+	$sql_sanpham = "SELECT * FROM tbl_sanpham WHERE id_sanpham='" . $id . "' LIMIT 1";
+	$result_sanpham = $conn->query($sql_sanpham);
+    $row_giohang = $result_giohang->fetch_assoc();
+    $sql_chitiet = "SELECT * FROM tbl_cart_items WHERE tbl_cart_items.id_giohang='$row_giohang[id_giohang]'";
+	$result_chitiet = $conn->query($sql_chitiet);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -47,7 +53,7 @@ include("admincp/config/connect.php");
 						</div>
         <div class="card-body">
                         <?php
-                        if (isset($_SESSION['cart'])) {
+                        
                             $tongcong = 0;
 
                         ?>
@@ -67,25 +73,23 @@ include("admincp/config/connect.php");
 
 
                                     <?php
-                                    foreach ($_SESSION['cart'] as $cart_item) {
+                                    foreach ($result_chitiet as $cart_item) {
                                         $tonggia = $cart_item['soluong'] * $cart_item['giasanpham'];
-                                        $tongcong += $tonggia;
+                                        $tongcong += $cart_item['gia'];
                                     ?>
                                         <tr>
                                             <td><?php echo $cart_item['tensanpham'] ?></td>
-                                            <td><img src='admincp/modules/quanlysanpham/uploads/<?php echo $cart_item['hinhanh'] ?>' width='50'></td>
+                                            <td><img src='images/<?php echo $cart_item['hinhanh'] ?>' width='50'></td>
                                             <td><?php echo $cart_item['giasanpham'] ?></td>
                                             <td>
-                                                <div class="quantity_max1" hidden="true"><?php echo $row['soluong'] ?></div>
-
-                                                <a class="minus1" href="cart/edit.php?tru=<?php echo $cart_item['id'] ?>"><i class="fa fa-minus" aria-hidden="true"></i></a>
-                                                <span id="quantity_value1"><?php echo $cart_item['soluong'] ?></span>
-                                                <a class="plus1" href="cart/edit.php?cong=<?php echo $cart_item['id'] ?>"><i class="fa fa-plus" aria-hidden="true"></i></a>
-
+                                                <div class="quantity_max1" hidden="true"><?php echo $row['soluongmua'] ?></div>
+                                                <a class="minus1" href="cart/edit.php?tru=<?php echo $cart_item['id_sanpham'] ?>"><i class="fa fa-minus" aria-hidden="true"></i></a>
+                                                <form style="display: inline" action="cart/edit.php?id_sanpham=<?php echo $cart_item['id_sanpham'] ?>" method="post"><span id="quantity_value1"><input type="text" name="sl_input" style="width: 25px; text-align: center; border: none;"  value="<?php echo $cart_item['soluongmua'] ?>"> </span></form>
+                                                <a class="plus1" href="cart/edit.php?cong=<?php echo $cart_item['id_sanpham'] ?>"><i class="fa fa-plus" aria-hidden="true"></i></a>
                                             </td>
-                                            <td><?php echo $tonggia ?></td>
+                                            <td><?php echo $cart_item['gia'] ?></td>
                                             <td>
-                                                <a href="cart/delete.php?id=<?php echo $cart_item['id'] ?>" class='btn btn-sm btn-danger btnDelete'>Xóa</a>
+                                                <a href="cart/delete.php?id=<?php echo $cart_item['id_sanpham'] ?>" class='btn btn-sm btn-danger btnDelete'>Xóa</a>
                                             </td>
                                         </tr>
 
@@ -96,17 +100,7 @@ include("admincp/config/connect.php");
                                         <td><a href="cart/delete_all.php">Xóa tất cả</a></td>
                                         <td><a href="checkout.php">Đặt hàng</a></td>
                                     </tr><?php
-                                        } else {
-
-                                            ?>
-                                    <tr>
-                                        <td>
-                                            <div>Giỏ hàng trống</div>
-                                        </td>
-                                    </tr>
-                                <?php
-
-                                        }
+                                        
 
                                 ?>
 

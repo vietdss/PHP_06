@@ -2,26 +2,49 @@
 
 session_start();
 include("admincp/config/connect.php");
+$id_khachhang = $_SESSION['id_khachhang'];
+$sql_khachhang = "SELECT * FROM tbl_dangky WHERE id_khachhang='" . $_SESSION['id_khachhang'] . "' LIMIT 1";
+$result_khachhang = $conn->query($sql_khachhang);
+$khachhang = $result_khachhang->fetch_assoc();
+$sql_giohang = "SELECT * FROM tbl_giohang WHERE id_khachhang='" . $_SESSION['id_khachhang'] . "' LIMIT 1";
+$result_giohang = $conn->query($sql_giohang);
+$sql_sanpham = "SELECT * FROM tbl_sanpham WHERE id_sanpham='" . $id . "' LIMIT 1";
+$result_sanpham = $conn->query($sql_sanpham);
+$row_giohang = $result_giohang->fetch_assoc();
+$sql_chitiet = "SELECT * FROM tbl_cart_items WHERE id_giohang='$row_giohang[id_giohang]'";
+$result_chitiet = $conn->query($sql_chitiet);
 if (isset($_POST['thanhtoan'])) {
-	$id_khachhang = $_SESSION['id_khachhang'];
-	$code_order = rand(0, 9999);
-	$cart_pay = "tienmat";
-	$insert_cart = "INSERT INTO tbl_giohang(id_khachhang,code_cart,cart_status,cart_payment) VALUE('" . $id_khachhang . "','" . $code_order . "',1,'" . $cart_pay . "')";
+	$diachi = ''; // Khởi tạo biến địa chỉ
 
-	if ($conn->query($insert_cart) === TRUE) {
-		foreach ($_SESSION['cart'] as $key => $value) {
-			$id_sanpham = $value['id'];
-			$soluong = $value['soluong'];
+	// Kiểm tra xem đã chọn tỉnh/thành phố và quận/huyện chưa
+	if (isset($_POST['city']) && isset($_POST['district'])) {
+		// Lấy giá trị của tỉnh/thành phố và quận/huyện
+		$city = $_POST['city'];
+		$district = $_POST['district'];
 
-			$insert_order_details = "INSERT INTO tbl_cart_detail(id_sanpham,code_cart,soluongmua) VALUE('" . $id_sanpham . "','" . $code_order . "','" . $soluong . "')";
-			$conn->query($insert_order_details);
+		// Gán giá trị địa chỉ
+		$diachi = $city . ', ' . $district;
+
+		// Kiểm tra xem có chọn phường/xã không
+		if (isset($_POST['ward'])) {
+			$ward = $_POST['ward'];
+			// Nếu có, thêm phường/xã vào địa chỉ
+			$diachi .= ', ' . $ward;
 		}
 	}
-	unset($_SESSION['cart']);
-	$message = "Đặt hàng thành công";
-	echo "<script type='text/javascript'>alert('$message');</script>";
-	
 
+	$tonggia = 0;
+
+	foreach ($result_chitiet as $row) {
+		$tonggia += $row['gia'];
+	}
+
+
+	$sql_themdonhang = "INSERT INTO tbl_donhang (id_khachhang,tonggia,cart_payment,hoten,diachi,sdt) VALUES ('$_SESSION[id_khachhang]','$tonggia', '$_POST[phuongthuc]','$_POST[hoten]','$diachi','$_POST[sdt]')";
+	$conn->query($sql_themdonhang);
+	$sql_xoa = "DELETE FROM tbl_cart_items WHERE id_giohang='$row_giohang[id_giohang]'";
+	$conn->query($sql_xoa);
+	header("Location:index.php");
 }
 
 
@@ -100,48 +123,44 @@ if (isset($_POST['thanhtoan'])) {
 							<p class="lead">Vui lòng kiểm tra thông tin Khách hàng, thông tin Giỏ hàng trước khi Đặt hàng.</p>
 						</div>
 
-						<div class="row" >
+						<div class="row">
 							<div class="col-md-4 order-md-2 mb-4">
 								<h4 class="d-flex justify-content-between align-items-center mb-3">
 									<span class="text-muted">Giỏ hàng</span>
-									<span class="badge badge-secondary badge-pill">2</span>
+									<span class="badge badge-secondary badge-pill"><?php echo $result_chitiet->num_rows ?></span>
 								</h4>
 								<ul class="list-group mb-3">
-									<input type="hidden" name="sanphamgiohang[1][sp_ma]">
-									<input type="hidden" name="sanphamgiohang[1][gia]">
-									<input type="hidden" name="sanphamgiohang[1][soluong]" value="2">
+									<?php
+									$tong = 0;
+									foreach ($result_chitiet as $row) {
+										$sql_sanpham = "SELECT * FROM tbl_sanpham WHERE id_sanpham='" . $row['id_sanpham'] . "' LIMIT 1";
+										$result_sanpham = $conn->query($sql_sanpham);
+										$row_sanpham = $result_sanpham->fetch_assoc();
+										$tong += $row['gia'];
+									?>
 
-									<li class="list-group-item d-flex justify-content-between lh-condensed">
-										<div>
-											<h6 class="my-0">Apple Ipad 4 Wifi 16GB</h6>
-											<small class="text-muted">11800000.00 x 2</small>
-										</div>
-										<span class="text-muted">23600000</span>
-									</li>
-									<input type="hidden" name="sanphamgiohang[2][sp_ma]" value="4">
-									<input type="hidden" name="sanphamgiohang[2][gia]" value="14990000.00">
-									<input type="hidden" name="sanphamgiohang[2][soluong]" value="8">
 
-									<li class="list-group-item d-flex justify-content-between lh-condensed">
-										<div>
-											<h6 class="my-0">Apple iPhone 5 16GB White</h6>
-											<small class="text-muted">14990000.00 x 8</small>
-										</div>
-										<span class="text-muted">119920000</span>
-									</li>
+										<li class="list-group-item d-flex justify-content-between lh-condensed">
+											<div>
+												<h6 class="my-0"><?php echo $row_sanpham['tensanpham'] ?></h6>
+												<small class="text-muted"><?php echo $row_sanpham['giasanpham'] ?> x <?php echo $row['soluongmua'] ?></small>
+											</div>
+											<span class="text-muted"><?php echo $row['gia'] ?></span>
+										</li>
+									<?php
+									}
+
+									?>
+
+
 									<li class="list-group-item d-flex justify-content-between">
 										<span>Tổng thành tiền</span>
-										<strong>143520000</strong>
+										<strong><?php echo $tong ?></strong>
 									</li>
 								</ul>
 
 
-								<div class="input-group">
-									<input type="text" class="form-control" placeholder="Mã khuyến mãi">
-									<div class="input-group-append">
-										<button type="submit" class="btn btn-secondary">Xác nhận</button>
-									</div>
-								</div>
+
 
 							</div>
 							<div class="col-md-8 order-md-1">
@@ -149,43 +168,41 @@ if (isset($_POST['thanhtoan'])) {
 
 								<div class="row">
 									<div class="col-md-12">
-										<label for="kh_ten">Họ tên</label>
-										<input type="text" class="form-control" name="kh_ten" id="kh_ten" value="Dương Nguyễn Phú Cường" readonly="">
+										<label>Họ tên</label>
+										<input type="text" class="form-control" name="hoten" value="<?php echo $khachhang["hovaten"] ?>">
 									</div>
 									<div class="col-md-12">
-										<label for="kh_gioitinh">Giới tính</label>
-										<input type="text" class="form-control" name="kh_gioitinh" id="kh_gioitinh" value="Nam" readonly="">
+										<label>Số điện thoại</label>
+										<input type="text" class="form-control" name="sdt" value="<?php echo $khachhang["sodienthoai"] ?>">
+
 									</div>
 									<div class="col-md-12">
-										<label for="kh_diachi">Địa chỉ</label>
-										<input type="text" class="form-control" name="kh_diachi" id="kh_diachi" value="130 Xô Viết Nghệ Tỉnh" readonly="">
+										<label>Địa chỉ</label>
+										<div>
+											<select class="form-select form-select-sm mb-3" id="city" name="city" aria-label=".form-select-sm">
+												<option value="" selected>Chọn tỉnh thành</option>
+											</select>
+
+											<select class="form-select form-select-sm mb-3" id="district" name="district" aria-label=".form-select-sm">
+												<option value="" selected>Chọn quận huyện</option>
+											</select>
+
+											<select class="form-select form-select-sm" id="ward" name="ward" aria-label=".form-select-sm">
+												<option value="" selected>Chọn phường xã</option>
+											</select>
+										</div>
 									</div>
-									<div class="col-md-12">
-										<label for="kh_dienthoai">Điện thoại</label>
-										<input type="text" class="form-control" name="kh_dienthoai" id="kh_dienthoai" value="0915659223" readonly="">
-									</div>
-									<div class="col-md-12">
-										<label for="kh_email">Email</label>
-										<input type="text" class="form-control" name="kh_email" id="kh_email" value="phucuong@ctu.edu.vn" readonly="">
-									</div>
-									<div class="col-md-12">
-										<label for="kh_ngaysinh">Ngày sinh</label>
-										<input type="text" class="form-control" name="kh_ngaysinh" id="kh_ngaysinh" value="11/6/1989" readonly="">
-									</div>
-									<div class="col-md-12">
-										<label for="kh_cmnd">CMND</label>
-										<input type="text" class="form-control" name="kh_cmnd" id="kh_cmnd" value="362209685" readonly="">
-									</div>
+
 								</div>
 
 								<h4 class="mb-3 my-3">Hình thức thanh toán</h4>
 								<div class=" col-md-12">
 									<div class="form-check col-md-12">
-										<input  type="radio" class="form-check-input" name="optradio" value="Tiền mặt" checked>
+										<input type="radio" class="form-check-input" id="radio1" name="phuongthuc" value="Tiền mặt" checked>
 										<label style="padding-left:0;" class="form-check-label" for="radio1">Tiền mặt</label>
 									</div>
 									<div class="form-check col-md-12">
-										<input type="radio" class="form-check-input" id="radio2" name="optradio" value="Chuyển khoản">
+										<input type="radio" class="form-check-input" id="radio2" name="phuongthuc" value="Chuyển khoản">
 										<label style="padding-left:0;" class="form-check-label" for="radio2">Chuyển khoản</label>
 									</div>
 								</div>
@@ -202,7 +219,7 @@ if (isset($_POST['thanhtoan'])) {
 		</div>
 
 		<?php
-					include("pages/newsletter.php");
+		include("pages/newsletter.php");
 
 		include("pages/footer.php");
 
@@ -220,6 +237,49 @@ if (isset($_POST['thanhtoan'])) {
 	<script src="plugins/easing/easing.js"></script>
 	<script src="plugins/jquery-ui-1.12.1.custom/jquery-ui.js"></script>
 	<script src="js/categories_custom.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+	<script>
+		var citis = document.getElementById("city");
+		var districts = document.getElementById("district");
+		var wards = document.getElementById("ward");
+		var Parameter = {
+			url: "https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json",
+			method: "GET",
+			responseType: "application/json",
+		};
+		var promise = axios(Parameter);
+		promise.then(function(result) {
+			renderCity(result.data);
+		});
+
+		function renderCity(data) {
+			for (const x of data) {
+				citis.options[citis.options.length] = new Option(x.Name, x.Name); // Change x.Id to x.Name
+			}
+			citis.onchange = function() {
+				district.length = 1;
+				ward.length = 1;
+				if (this.value != "") {
+					const result = data.find(n => n.Name === this.value); // Change n.Id to n.Name
+
+					for (const k of result.Districts) {
+						district.options[district.options.length] = new Option(k.Name, k.Name); // Change k.Id to k.Name
+					}
+				}
+			};
+			district.onchange = function() {
+				ward.length = 1;
+				const dataCity = data.find((n) => n.Name === citis.value); // Change n.Id to n.Name
+				if (this.value != "") {
+					const dataWards = dataCity.Districts.find(n => n.Name === this.value).Wards;
+
+					for (const w of dataWards) {
+						wards.options[wards.options.length] = new Option(w.Name, w.Name); // Change w.Id to w.Name
+					}
+				}
+			};
+		}
+	</script>
 </body>
 
 </html>
