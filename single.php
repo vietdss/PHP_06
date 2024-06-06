@@ -24,6 +24,14 @@ $single = $query_single->fetch_assoc();
 	<link rel="stylesheet" type="text/css" href="styles/single_styles.css">
 	<link rel="stylesheet" type="text/css" href="styles/single_responsive.css">
 </head>
+<script>
+	function confirmAddToCart(event) {
+		event.preventDefault();
+		var userConfirmed = alert("Sản phẩm đã được thêm vào giỏ hàng");		
+		event.target.closest('form').submit();
+	
+	}
+</script>
 <style>
 	.plus1,
 	.minus1 {

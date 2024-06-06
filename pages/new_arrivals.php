@@ -30,10 +30,9 @@ $query_show_new = $conn->query($sql_show_new);
 <script>
 	function confirmAddToCart(event) {
 		event.preventDefault();
-		var userConfirmed = confirm("Bạn có muốn chuyển đến giỏ hàng không?");
-		if (userConfirmed) {
-			event.target.closest('form').submit();
-		}
+		var userConfirmed = alert("Sản phẩm đã được thêm vào giỏ hàng");		
+		event.target.closest('form').submit();
+	
 	}
 </script>
 <div class="new_arrivals">

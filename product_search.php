@@ -45,6 +45,14 @@ $query_show_sanpham = $conn->query($sql_show_sanpham);
 	<link rel="stylesheet" type="text/css" href="styles/categories_styles.css">
 	<link rel="stylesheet" type="text/css" href="styles/categories_responsive.css">
 </head>
+<script>
+	function confirmAddToCart(event) {
+		event.preventDefault();
+		var userConfirmed = alert("Sản phẩm đã được thêm vào giỏ hàng");		
+		event.target.closest('form').submit();
+	
+	}
+</script>
 <style>
 	.plus1,
 	.minus1 {

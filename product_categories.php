@@ -69,7 +69,14 @@ $query_show_sanpham = $conn->query($sql_show_sanpham);
 		cursor: pointer;
 	}
 </style>
-
+<script>
+	function confirmAddToCart(event) {
+		event.preventDefault();
+		var userConfirmed = alert("Sản phẩm đã được thêm vào giỏ hàng");		
+		event.target.closest('form').submit();
+	
+	}
+</script>
 <body>
 
 	<div class="super_container">
