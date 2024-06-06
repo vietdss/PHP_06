@@ -56,7 +56,7 @@ $result = $conn->query($sql);
                     <td><img  src='../images/<?php echo $row['banner']?>' width='50'></td>
                     <td>
                     <a href='?action=capnhatdanhmuc&id_danhmuc=<?php echo $row['id_danhmuc']?>'class='btn btn-sm btn-primary'>Sửa</a>
-                    <a href="modules/quanlydanhmuc/delete.php?id_danhmuc=<?php echo $row['id_danhmuc']?>" class='btn btn-sm btn-danger btnDelete'>Xóa</a>
+                    <a onclick="xoa(<?php echo $row['id_danhmuc']?>)" href="#" class='btn btn-sm btn-danger btnDelete'>Xóa</a>
                     </td>
                     </tr>
                 <?php
@@ -85,3 +85,14 @@ $result = $conn->query($sql);
 <!-- AdminLTE for demo purposes -->
 <script src="../../dist/js/demo.js"></script>
 
+<script>
+    function xoa(iddanhmuc){
+        if(confirm("Bạn có đồng ý xóa nhân viên này không")){
+            window.location.href='modules/quanlydanhmuc/delete.php?idsanpham='+iddanhmuc;
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+</script>

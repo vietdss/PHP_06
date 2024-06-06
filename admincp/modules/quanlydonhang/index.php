@@ -1,6 +1,6 @@
 <?php
 include("./config/connect.php");
-$sql = "SELECT * FROM tbl_donhang";
+$sql = "SELECT * FROM tbl_donhang ORDER BY order_id DESC";
 $result = $conn->query($sql);
 
 ?>
@@ -45,6 +45,7 @@ $result = $conn->query($sql);
                         <td>Số điện thoại</td>
                         <td>Tổng giá</td>
                         <td>Phương thức thanh toán</td>
+                        <td>Thời gian</td>
                         <td></td>
                     </tr>
 
@@ -59,9 +60,11 @@ $result = $conn->query($sql);
                     <td><?php echo $row['sdt']?></td>
                     <td><?php echo $row['tonggia']?></td>
                     <td><?php echo $row['cart_payment']?></td>
+                    <td><?php echo $row['thoigian']?></td>
+
                     <td>
                     <a href='?action=chitietdonhang&order_id=<?php echo $row['order_id']?>'class='btn btn-sm btn-primary'>Chi tiết</a>
-                    <a href="modules/quanlydonhang/delete.php?order_id=<?php echo $row['order_id']?>" class='btn btn-sm btn-danger btnDelete'>Xóa</a>
+                    <a onclick="xoa(<?php echo $row['order_id']?>)" href="#" class='btn btn-sm btn-danger btnDelete'>Hủy </a>
                     </td>
                     </tr>
                 <?php
@@ -90,3 +93,14 @@ $result = $conn->query($sql);
 <!-- AdminLTE for demo purposes -->
 <script src="../../dist/js/demo.js"></script>
 
+<script>
+    function xoa(order_id){
+        if(confirm("Bạn có đồng ý xóa nhân viên này không")){
+            window.location.href='modules/quanlydonhang/delete.php?order_id='+order_id;
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+</script>

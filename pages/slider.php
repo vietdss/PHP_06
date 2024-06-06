@@ -5,9 +5,9 @@
 			<div class="row align-items-center fill_height">
 				<div class="col">
 					<div class="main_slider_content">
-						<h6>Spring / Summer Collection 2017</h6>
+						<h6>Spring / Summer Collection 2024</h6>
 						<h1>Get up to 30% Off New Arrivals</h1>
-						<div class="red_button shop_now_button"><a href="#">shop now</a></div>
+						<div class="red_button shop_now_button"><a href="./product_categories.php">shop now</a></div>
 					</div>
 				</div>
 			</div>

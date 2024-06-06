@@ -27,6 +27,15 @@ $query_show_new = $conn->query($sql_show_new);
 		cursor: pointer;
 	}
 </style>
+<script>
+	function confirmAddToCart(event) {
+		event.preventDefault();
+		var userConfirmed = confirm("Bạn có muốn chuyển đến giỏ hàng không?");
+		if (userConfirmed) {
+			event.target.closest('form').submit();
+		}
+	}
+</script>
 <div class="new_arrivals">
 	<div class="container">
 		<div class="row">
@@ -59,20 +68,24 @@ $query_show_new = $conn->query($sql_show_new);
 					<?php
 					foreach ($query_show_new as $row) {
 					?><form action="cart/add.php?id_sanpham=<?php echo $row['id_sanpham'] ?>" method="post">
-						<div class="product-item <?php echo"$row[tendanhmuc]"?>">
-							<div class="product discount product_filter">
-								<div class="product_image">
-									<img src="images/<?php echo"$row[hinhanh]"?>" alt="">
+							<div class="product-item <?php echo "$row[tendanhmuc]" ?>">
+								<div class="product discount product_filter">
+									<div class="product_image">
+										<img src="images/<?php echo "$row[hinhanh]" ?>" alt="">
+									</div>
+									<div class="favorite favorite_left"></div>
+									<div class="product_info">
+										<h6 class="product_name"><a href="single.php?id_sanpham=<?php echo "$row[id_sanpham]" ?>"><?php echo "$row[tensanpham]" ?></a></h6>
+										<div class="product_price"><?php echo "$row[giasanpham]" ?></div>
+									</div>
 								</div>
-								<div class="favorite favorite_left"></div>
-								<div class="product_info">
-									<h6 class="product_name"><a href="single.php?id_sanpham=<?php echo"$row[id_sanpham]"?>"><?php echo"$row[tensanpham]"?></a></h6>
-									<div class="product_price"><?php echo"$row[giasanpham]"?></div>
-								</div>
+								<?php if ($row['soluong'] > 0) { ?>
+									<button name="themgiohang" type="submit" style="border: none;" class="red_button add_to_cart_button" onclick="confirmAddToCart(event)"><a>add to cart</a></button>
+								<?php } else { ?>
+									<div class="product_bubble product_bubble_right product_bubble_red d-flex flex-column align-items-center"><span>Hết</span></div>
+								<?php } ?>
 							</div>
-							<button name="themgiohang" type="submit" style="border: none;" class="red_button add_to_cart_button"><a>add to cart</a></button>
-						</div>
-	   </form>
+						</form>
 					<?php
 					}
 					?>

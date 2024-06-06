@@ -24,9 +24,9 @@ if (isset($_POST["capnhatsanpham"])) {
         $sql = "UPDATE tbl_sanpham SET tensanpham='" . $tensanpham . "',masanpham='" . $masanpham . "',
             giasanpham='" . $giasanpham . "',soluong='" . $soluong . "',hinhanh='" . $fileName . "',
             tomtat='" . $tomtat . "',noidung='" . $noidung . "',trangthai='" . $hienthi . "',id_danhmuc='" . $danhmuc . "' WHERE id_sanpham='$_GET[idsanpham]'";
-        foreach ($result as $row) {
-            unlink('../images/' . $row['hinhanh']);
-        }
+        // foreach ($result as $row) {
+        //     unlink('../images/' . $row['hinhanh']);
+        // }
     } else {
         $sql = "UPDATE tbl_sanpham SET tensanpham='" . $tensanpham . "',masanpham='" . $masanpham . "',
     giasanpham='" . $giasanpham . "',soluong='" . $soluong . "',tomtat='" . $tomtat . "',
@@ -96,8 +96,8 @@ if (isset($_POST["capnhatsanpham"])) {
                                 </div>
                                 <div class='form-group'>
                                     <label>Hình ảnh</label>
-                                    <input type="file" name="hinhanh">
-                                    <img src="modules/quanlysp/uploads/<?php echo $row['hinhanh'] ?> " width="150px">
+                                    <img style="display: block;" id="anhHienThi" src='../images/<?php echo $row['hinhanh']?>' alt="" width="250">
+                                <input style="display: block;" value="../images/<?php echo $row['hinhanh']?>" id="anhUpLoad" type="file" name="hinhanh" class="">
                                 </div>
 
                                 <div class='form-group'>
@@ -150,10 +150,8 @@ if (isset($_POST["capnhatsanpham"])) {
                                     </select>
 
                                 </div>
-                                <div class='form-group'>
-
-                                    <td colspan="2"><input type="submit" value="Sửa sản phẩm" name="capnhatsanpham"></td>
-                                </div>
+                       
+                                <button type="submit" class="btn btn-primary" name="capnhatsanpham">Submit</button>
                         </form>
                     <?php       }
                     ?>
@@ -176,3 +174,11 @@ if (isset($_POST["capnhatsanpham"])) {
 <script src="../../dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="../../dist/js/demo.js"></script>
+<script>
+    var anhHienThi = document.getElementById('anhHienThi');
+    var anhUpLoad = document.getElementById('anhUpLoad');
+    anhUpLoad.addEventListener('change',function(e){
+        var file = e.target.files[0];
+        anhHienThi.src = URL.createObjectURL(file);
+    })
+</script>

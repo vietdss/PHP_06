@@ -21,13 +21,13 @@ if (isset($_POST["themsanpham"])) {
         $sql = "INSERT INTO tbl_sanpham(tensanpham,masanpham,giasanpham,soluong,hinhanh,tomtat,noidung,trangthai,id_danhmuc) 
     VALUE ('" . $tensanpham . "','" . $masanpham . "','" . $giasanpham . "','" . $soluong . "','" . $fileName . "','" . $tomtat . "','" . $noidung . "'," . $hienthi . ",'" . $danhmuc . "')";
         $conn->query($sql);
-        header('Location:../../index.php?action=quanlydanhmuc');
+        header('Location:../../index.php');
     } else {
         $hinhanh = '';
         $sql = "INSERT INTO tbl_sanpham(tensanpham,masanpham,giasanpham,soluong,hinhanh,tomtat,noidung,trangthai,id_danhmuc) 
                 VALUE ('" . $tensanpham . "','" . $masanpham . "','" . $giasanpham . "','" . $soluong . "','" . $hinhanh . "','" . $tomtat . "','" . $noidung . "'," . $hienthi . ",'" . $danhmuc . "')";
         $conn->query($sql);
-        header('Location:../../index.php?action=quanlydanhmuc');
+        header('Location:../../index.php');
     }
 }
 
@@ -84,7 +84,8 @@ if (isset($_POST["themsanpham"])) {
                             </div>
                             <div class="form-group">
                                 <label>Hình ảnh</label>
-                                <input type="file" name="hinhanh" class="">
+                                <img style="display: block;" id="anhHienThi" src="" alt="" width="250">
+                                <input style="display: block;" id="anhUpLoad" type="file" name="hinhanh" class="">
                             </div>
                             <div class="form-group">
                                 <label>Tóm tắt</label>
@@ -139,3 +140,11 @@ if (isset($_POST["themsanpham"])) {
 <script src="../../dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="../../dist/js/demo.js"></script>
+<script>
+    var anhHienThi = document.getElementById('anhHienThi');
+    var anhUpLoad = document.getElementById('anhUpLoad');
+    anhUpLoad.addEventListener('change',function(e){
+        var file = e.target.files[0];
+        anhHienThi.src = URL.createObjectURL(file);
+    })
+</script>

@@ -1,61 +1,14 @@
 <?php
-
 session_start();
+
 include("admincp/config/connect.php");
-$id_khachhang = $_SESSION['id_khachhang'];
-$sql_khachhang = "SELECT * FROM tbl_dangky WHERE id_khachhang='" . $_SESSION['id_khachhang'] . "' LIMIT 1";
-$result_khachhang = $conn->query($sql_khachhang);
-$khachhang = $result_khachhang->fetch_assoc();
 $sql_giohang = "SELECT * FROM tbl_giohang WHERE id_khachhang='" . $_SESSION['id_khachhang'] . "' LIMIT 1";
 $result_giohang = $conn->query($sql_giohang);
 $sql_sanpham = "SELECT * FROM tbl_sanpham WHERE id_sanpham='" . $id . "' LIMIT 1";
 $result_sanpham = $conn->query($sql_sanpham);
 $row_giohang = $result_giohang->fetch_assoc();
-$sql_chitiet = "SELECT * FROM tbl_cart_items WHERE id_giohang='$row_giohang[id_giohang]'";
+$sql_chitiet = "SELECT * FROM tbl_cart_items WHERE tbl_cart_items.id_giohang='$row_giohang[id_giohang]'";
 $result_chitiet = $conn->query($sql_chitiet);
-if (isset($_POST['thanhtoan'])) {
-	$diachi = ''; // Khởi tạo biến địa chỉ
-
-	// Kiểm tra xem đã chọn tỉnh/thành phố và quận/huyện chưa
-	if (isset($_POST['city']) && isset($_POST['district'])) {
-		// Lấy giá trị của tỉnh/thành phố và quận/huyện
-		$city = $_POST['city'];
-		$district = $_POST['district'];
-
-		// Gán giá trị địa chỉ
-		$diachi = $city . ', ' . $district;
-
-		// Kiểm tra xem có chọn phường/xã không
-		if (isset($_POST['ward'])) {
-			$ward = $_POST['ward'];
-			// Nếu có, thêm phường/xã vào địa chỉ
-			$diachi .= ', ' . $ward;
-		}
-	}
-
-	$tonggia = 0;
-
-	foreach ($result_chitiet as $row) {
-		$tonggia += $row['gia'];
-	}
-
-
-	$sql_themdonhang = "INSERT INTO tbl_donhang (id_khachhang,tonggia,cart_payment,hoten,diachi,sdt,thoigian) VALUES ('$_SESSION[id_khachhang]','$tonggia', '$_POST[phuongthuc]','$_POST[hoten]','$diachi','$_POST[sdt]',NOW())";
-	$conn->query($sql_themdonhang);
-	$order_id = $conn->insert_id;
-	foreach ($result_chitiet as $row) {
-		$sql_themdonhangchitiet = "INSERT INTO tbl_chitietdonhang (id_order,id_sanpham,soluongmua) VALUES ('$order_id','$row[id_sanpham]','$row[soluongmua]')";
-		$conn->query($sql_themdonhangchitiet);
-	}
-	$sql_xoa = "DELETE FROM tbl_cart_items WHERE id_giohang='$row_giohang[id_giohang]'";
-	$conn->query($sql_xoa);
-	header("Location:index.php");
-}
-
-
-
-
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -124,7 +77,7 @@ if (isset($_POST['thanhtoan'])) {
 					<div class="breadcrumbs d-flex flex-row align-items-center">
 						<ul>
 							<li><a href="index.php">Home</a></li>
-							<li class="active"><i class="fa fa-angle-right" aria-hidden="true"></i>Thanh toán</li>
+							<li class="active"><i class="fa fa-angle-right" aria-hidden="true"></i><?php echo $category ?></li>
 						</ul>
 					</div>
 

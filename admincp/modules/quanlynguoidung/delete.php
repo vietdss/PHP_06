@@ -12,11 +12,9 @@ if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
 }
 
-$id = $_GET['order_id'];
+$id = $_GET['id_khachhang'];
 
-$sql = "DELETE FROM tbl_donhang WHERE order_id=$id";
+$sql = "DELETE FROM tbl_dangky WHERE id_khachhang=$id";
 $conn->query($sql);
-$sql = "DELETE FROM tbl_chitietdonhang WHERE order_id=$id";
-$conn->query($sql);
-header('Location:../../index.php?action=quanlydonhang');
+header('Location:../../index.php?action=quanlynguoidung');
 ?>

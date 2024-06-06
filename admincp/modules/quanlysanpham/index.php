@@ -49,7 +49,6 @@ $result = $conn->query($sql);
                 <td>Giá sản phẩm</td>
                 <td>Số lượng</td>
                 <td>Danh mục</td>
-                <td>Mã sản phẩm</td>
                 <td>Tóm tắt</td>
                 <td>Trạng thái</td>
                 <td>Quản lý</td>
@@ -67,7 +66,6 @@ $result = $conn->query($sql);
                   <td><?php echo $row['giasanpham'] ?></td>
                   <td><?php echo $row['soluong'] ?></td>
                   <td><?php echo $row['tendanhmuc'] ?></td>
-                  <td><?php echo $row['masanpham'] ?></td>
                   <td><?php echo $row['tomtat'] ?></td>
                   <td><?php if ($row['trangthai'] == 1) echo "Mới";
                       else {
@@ -75,7 +73,7 @@ $result = $conn->query($sql);
                       } ?></td>
                   <td>
                     <a href="?action=capnhatsanpham&idsanpham=<?php echo $row['id_sanpham'] ?>" class='btn btn-sm btn-primary'>Sửa</a>
-                    <a href="modules/quanlysanpham/handle.php?idsanpham=<?php echo $row['id_sanpham'] ?>" class='btn btn-sm btn-danger btnDelete'>Xóa</a>
+                    <a onclick="xoa(<?php echo $row['id_sanpham'] ?>)" href="#" class='btn btn-sm btn-danger btnDelete'>Xóa</a>
                   </td>
                 </tr>
               <?php
@@ -104,3 +102,14 @@ $result = $conn->query($sql);
 <script src="../../dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="../../dist/js/demo.js"></script>
+<script>
+    function xoa(idsanpham){
+        if(confirm("Bạn có đồng ý xóa nhân viên này không")){
+            window.location.href='modules/quanlysanpham/delete.php?idsanpham='+idsanpham;
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+</script>
