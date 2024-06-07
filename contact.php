@@ -70,7 +70,7 @@ if (isset($_POST['gui'])) {
             <div class="row">
                 <div class="col">
                     <div id="google_map">
-                        <div class="map_container">
+                        <div class="map_container" style="overflow: inherit;">
                             <div id="map"> <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3939.805242637546!2d105.735565!3d21.052885!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ab91467c679b:0x658494293394f19f!2sHanoi,+Vietnam!5e0!3m2!1sen!2set!4v1695628141031!5m2!1sen!2set" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                             </div>
                         </div>

@@ -48,9 +48,9 @@ $query_show_sanpham = $conn->query($sql_show_sanpham);
 <script>
 	function confirmAddToCart(event) {
 		event.preventDefault();
-		var userConfirmed = alert("Sản phẩm đã được thêm vào giỏ hàng");		
+		var userConfirmed = alert("Sản phẩm đã được thêm vào giỏ hàng");
 		event.target.closest('form').submit();
-	
+
 	}
 </script>
 <style>
@@ -96,9 +96,9 @@ $query_show_sanpham = $conn->query($sql_show_sanpham);
 						</ul>
 					</div>
 					<div class="d-flex flex-row align-items-center" style="margin-bottom: 16px;">
-						
-							Từ khóa tìm kiếm: <?php echo $query ?>
-						
+
+						Từ khóa tìm kiếm: <?php echo $query ?>
+
 					</div>
 					<!-- Sidebar -->
 					<div class="sidebar">
@@ -126,10 +126,13 @@ $query_show_sanpham = $conn->query($sql_show_sanpham);
 							<div class="filter_button"><span>filter</span></div>
 						</div>
 					</div>
-
+									
 					<!-- Main Content -->
 					<div class="main_content">
+					<?php
+					if($query_show_sanpham->num_rows>0){
 
+					?>
 						<!-- Products -->
 						<div class="products_iso">
 							<div class="row">
@@ -165,8 +168,10 @@ $query_show_sanpham = $conn->query($sql_show_sanpham);
 									</div>
 
 									<!-- Product Grid -->
+
 									<div class="product-grid">
 										<?php foreach ($query_show_sanpham as $row) { ?>
+
 											<form action="cart/add.php?id_sanpham=<?php echo $row['id_sanpham'] ?>" method="post">
 												<div class="product-item <?php echo $row['tendanhmuc'] ?>">
 													<div class="product discount product_filter">
@@ -210,6 +215,15 @@ $query_show_sanpham = $conn->query($sql_show_sanpham);
 								</div>
 							</div>
 						</div>
+					<?php
+					}else{
+						
+					
+					?>
+					<h3>Không tìm thấy sản phẩm nào</h3>
+					<?php
+					}
+					?>
 					</div>
 				</div>
 			</div>

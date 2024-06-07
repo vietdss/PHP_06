@@ -4,6 +4,7 @@ $sql_danhmuc = "SELECT * FROM tbl_danhmuc";
 $query_danhmuc = $conn->query($sql_danhmuc);
 $sql_show_new = "SELECT * FROM tbl_sanpham,tbl_danhmuc WHERE tbl_sanpham.id_danhmuc=tbl_danhmuc.id_danhmuc AND tbl_sanpham.trangthai=1 ORDER BY tbl_sanpham.id_sanpham DESC LIMIT 10";
 $query_show_new = $conn->query($sql_show_new);
+
 ?>
 <!-- New Arrivals -->
 <style>
@@ -30,8 +31,18 @@ $query_show_new = $conn->query($sql_show_new);
 <script>
 	function confirmAddToCart(event) {
 		event.preventDefault();
-		var userConfirmed = alert("Sản phẩm đã được thêm vào giỏ hàng");		
+		<?php
+		if(isset($_SESSION['username'])){ ?>
+		var userConfirmed = alert("Sản phẩm đã được thêm vào giỏ hàng");
 		event.target.closest('form').submit();
+		<?php
+		}		
+		else{
+			?>
+			var userConfirmed = alert("Bạn cần đăng nhập để thêm vào giỏ hàng");	
+		<?php
+		}?>
+			
 	
 	}
 </script>

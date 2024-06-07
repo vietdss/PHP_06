@@ -93,7 +93,7 @@ $row = $result->fetch_assoc();
                                 <div class="news-content">
                                     <h3><?php echo $row['tieude']?></h3><span class="news-post"><?php echo $row['ngaydang']?></span>
                                     <p class="short-description"><?php echo $row['tomtat']?></p>
-                                    <a class="btn btn-primary" href="blog_detail.php?idblog=<?php echo $row['id_blog']?>">Xem thêm</a>
+                                    <a style="background-color: #FF6347; border: none; cursor: pointer;" class="btn btn-primary" href="blog_detail.php?idblog=<?php echo $row['id_blog']?>">Xem thêm</a>
                                 </div>
                             </div>
                             </div>

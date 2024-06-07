@@ -99,11 +99,11 @@ $result_chitiet = $conn->query($sql_chitiet);
                 <table class="table table-hover">
                     <thead>
                         <tr>
-                            <td>Tên sản phẩm</td>
-                            <td>Hình ảnh </td>
-                            <td>Giá</td>
-                            <td>Số lượng</td>
-                            <td>Tổng giá</td>
+                            <th>Tên sản phẩm</th>
+                            <th>Hình ảnh </th>
+                            <th>Giá</th>
+                            <th>Số lượng</th>
+                            <th>Tổng giá</th>
                         </tr>
 
                     </thead>
