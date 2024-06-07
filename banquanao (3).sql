@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: localhost
--- Thời gian đã tạo: Th6 06, 2024 lúc 01:23 PM
+-- Thời gian đã tạo: Th6 07, 2024 lúc 12:11 PM
 -- Phiên bản máy phục vụ: 8.0.17
 -- Phiên bản PHP: 7.3.10
 
@@ -44,6 +44,30 @@ INSERT INTO `tbl_admin` (`id_admin`, `username`, `password`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Cấu trúc bảng cho bảng `tbl_blog`
+--
+
+CREATE TABLE `tbl_blog` (
+  `id_blog` int(11) NOT NULL,
+  `tieude` varchar(100) NOT NULL,
+  `ngaydang` date NOT NULL,
+  `hinhanhblog` varchar(100) NOT NULL,
+  `noidung` text NOT NULL,
+  `tomtat` varchar(250) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `tbl_blog`
+--
+
+INSERT INTO `tbl_blog` (`id_blog`, `tieude`, `ngaydang`, `hinhanhblog`, `noidung`, `tomtat`) VALUES
+(3, '1', '2024-06-07', 'blog_3.jpg', '<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>\r\n\r\n<p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>\r\n\r\n<blockquote>\r\n<p>The Big Oxmox advised her not to do so, because there were thousands of bad Commas, wild Question Marks and devious Semikoli, but the Little Blind Text didn&rsquo;t listen. She packed her seven versalia, put her initial into the belt and made herself on the way.</p>\r\n</blockquote>\r\n\r\n<p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name of Lorem Ipsum decided to leave for the far World of Grammar.</p>\r\n\r\n<p>When she reached the first hills of the Italic Mountains, she had a last view back on the skyline of her hometown Bookmarksgrove, the headline of Alphabet Village and the subline of her own road, the Line Lane. Pityful a rethoric question ran over her cheek, then she continued her way.</p>\r\n\r\n<p><a href=\"https://preview.colorlib.com/theme/magdesign/images/post_lg_1.jpg\"><img alt=\"Image\" src=\"https://preview.colorlib.com/theme/magdesign/images/post_lg_1.jpg\" /></a></p>\r\n\r\n<p><a href=\"https://preview.colorlib.com/theme/magdesign/images/post_lg_2.jpg\"><img alt=\"Image\" src=\"https://preview.colorlib.com/theme/magdesign/images/post_lg_2.jpg\" /></a></p>\r\n\r\n<p><a href=\"https://preview.colorlib.com/theme/magdesign/images/post_lg_3.jpg\"><img alt=\"Image\" src=\"https://preview.colorlib.com/theme/magdesign/images/post_lg_3.jpg\" /></a></p>\r\n\r\n<p><a href=\"https://preview.colorlib.com/theme/magdesign/images/post_lg_4.jpg\"><img alt=\"Image\" src=\"https://preview.colorlib.com/theme/magdesign/images/post_lg_4.jpg\" /></a></p>\r\n\r\n<p><a href=\"https://preview.colorlib.com/theme/magdesign/images/post_lg_1.jpg\"><img alt=\"Image\" src=\"https://preview.colorlib.com/theme/magdesign/images/post_lg_1.jpg\" /></a></p>\r\n\r\n<p><a href=\"https://preview.colorlib.com/theme/magdesign/images/post_lg_2.jpg\"><img alt=\"Image\" src=\"https://preview.colorlib.com/theme/magdesign/images/post_lg_2.jpg\" /></a></p>\r\n\r\n<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>\r\n\r\n<p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>\r\n\r\n<div class=\"ddict_btn\" style=\"top: 32px; left: 27.2375px;\"><img src=\"chrome-extension://cianljdimgjlpmjllcbahmpdnicglaap/logo/48.png\" /></div>\r\n', '2'),
+(4, '1', '2024-06-07', 'blog_2.jpg', '2', '2'),
+(5, '1', '2024-06-07', 'blog_1.jpg', '<p>&nbsp;</p>\r\n\r\n<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>\r\n\r\n<p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>\r\n\r\n<blockquote>\r\n<p>The Big Oxmox advised her not to do so, because there were thousands of bad Commas, wild Question Marks and devious Semikoli, but the Little Blind Text didn&rsquo;t listen. She packed her seven versalia, put her initial into the belt and made herself on the way.</p>\r\n</blockquote>\r\n\r\n<p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name of Lorem Ipsum decided to leave for the far World of Grammar.</p>\r\n\r\n<p>When she reached the first hills of the Italic Mountains, she had a last view back on the skyline of her hometown Bookmarksgrove, the headline of Alphabet Village and the subline of her own road, the Line Lane. Pityful a rethoric question ran over her cheek, then she continued her way.</p>\r\n\r\n<p><a href=\"https://preview.colorlib.com/theme/magdesign/images/post_lg_1.jpg\"><img alt=\"Image\" src=\"https://preview.colorlib.com/theme/magdesign/images/post_lg_1.jpg\" /></a></p>\r\n\r\n<p><a href=\"https://preview.colorlib.com/theme/magdesign/images/post_lg_2.jpg\"><img alt=\"Image\" src=\"https://preview.colorlib.com/theme/magdesign/images/post_lg_2.jpg\" /></a></p>\r\n\r\n<p><a href=\"https://preview.colorlib.com/theme/magdesign/images/post_lg_3.jpg\"><img alt=\"Image\" src=\"https://preview.colorlib.com/theme/magdesign/images/post_lg_3.jpg\" /></a></p>\r\n\r\n<p><a href=\"https://preview.colorlib.com/theme/magdesign/images/post_lg_4.jpg\"><img alt=\"Image\" src=\"https://preview.colorlib.com/theme/magdesign/images/post_lg_4.jpg\" /></a></p>\r\n\r\n<p><a href=\"https://preview.colorlib.com/theme/magdesign/images/post_lg_1.jpg\"><img alt=\"Image\" src=\"https://preview.colorlib.com/theme/magdesign/images/post_lg_1.jpg\" /></a></p>\r\n\r\n<p><a href=\"https://preview.colorlib.com/theme/magdesign/images/post_lg_2.jpg\"><img alt=\"Image\" src=\"https://preview.colorlib.com/theme/magdesign/images/post_lg_2.jpg\" /></a></p>\r\n\r\n<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>\r\n\r\n<p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>\r\n\r\n<p>&nbsp;</p>\r\n', '2');
+
+-- --------------------------------------------------------
+
+--
 -- Cấu trúc bảng cho bảng `tbl_cart_items`
 --
 
@@ -60,8 +84,11 @@ CREATE TABLE `tbl_cart_items` (
 --
 
 INSERT INTO `tbl_cart_items` (`cart_item_id`, `id_giohang`, `id_sanpham`, `soluongmua`, `gia`) VALUES
-(35, 5, 41, 2, 20),
-(36, 5, 39, 1, 8);
+(39, 5, 41, 3, 30),
+(40, 5, 34, 1, 3),
+(41, 5, 39, 1, 8),
+(42, 5, 38, 2, 14),
+(43, 5, 40, 1, 9);
 
 -- --------------------------------------------------------
 
@@ -82,7 +109,8 @@ CREATE TABLE `tbl_chitietdonhang` (
 
 INSERT INTO `tbl_chitietdonhang` (`id_order_detail`, `id_order`, `id_sanpham`, `soluongmua`) VALUES
 (2, 23, 41, 3),
-(3, 23, 40, 1);
+(3, 23, 40, 1),
+(4, 24, 41, 3);
 
 -- --------------------------------------------------------
 
@@ -104,7 +132,6 @@ CREATE TABLE `tbl_dangky` (
 --
 
 INSERT INTO `tbl_dangky` (`id_khachhang`, `hovaten`, `taikhoan`, `matkhau`, `sodienthoai`, `email`) VALUES
-(1, 'Nguyễn Minh Tâm', 'maki', 'c4ca4238a0b923820dcc509a6f75849b', 569029353, 'mikuohandsome@gmail.com'),
 (10, 'Nguyễn Hoàng Việt', 'viet1', '1', 123456789, 'a@gmail.com'),
 (11, 'Nguyễn Việt', 'viet2', '2', 123456789, 'a@gmail.com'),
 (12, 'viet3', 'viet3', '3', 1, '1000nghia1000@gmial.com');
@@ -147,6 +174,13 @@ CREATE TABLE `tbl_donhang` (
   `thoigian` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+--
+-- Đang đổ dữ liệu cho bảng `tbl_donhang`
+--
+
+INSERT INTO `tbl_donhang` (`order_id`, `id_khachhang`, `tonggia`, `cart_payment`, `hoten`, `diachi`, `sdt`, `thoigian`) VALUES
+(24, 10, 30, 'Tiền mặt', 'Nguyễn Hoàng Việt', 'Tỉnh Phú Thọ, Thị xã Phú Thọ, Phường Âu Cơ', 123456789, '2024-06-06');
+
 -- --------------------------------------------------------
 
 --
@@ -164,6 +198,30 @@ CREATE TABLE `tbl_giohang` (
 
 INSERT INTO `tbl_giohang` (`id_giohang`, `id_khachhang`) VALUES
 (5, 10);
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `tbl_lienhe`
+--
+
+CREATE TABLE `tbl_lienhe` (
+  `id_lienhe` int(11) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `message` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `tbl_lienhe`
+--
+
+INSERT INTO `tbl_lienhe` (`id_lienhe`, `name`, `email`, `message`) VALUES
+(1, '1', '1000nghia1000@gmial.com', '1'),
+(2, '1', '1000nghia1000@gmial.com', '1'),
+(3, '1', '1000nghia1000@gmial.com', '1'),
+(4, 'a', 'a@gmail.coma', 'a'),
+(5, 'aa', 'a@gmail.coma', 'a');
 
 -- --------------------------------------------------------
 
@@ -212,6 +270,12 @@ ALTER TABLE `tbl_admin`
   ADD PRIMARY KEY (`id_admin`);
 
 --
+-- Chỉ mục cho bảng `tbl_blog`
+--
+ALTER TABLE `tbl_blog`
+  ADD PRIMARY KEY (`id_blog`);
+
+--
 -- Chỉ mục cho bảng `tbl_cart_items`
 --
 ALTER TABLE `tbl_cart_items`
@@ -248,6 +312,12 @@ ALTER TABLE `tbl_giohang`
   ADD PRIMARY KEY (`id_giohang`);
 
 --
+-- Chỉ mục cho bảng `tbl_lienhe`
+--
+ALTER TABLE `tbl_lienhe`
+  ADD PRIMARY KEY (`id_lienhe`);
+
+--
 -- Chỉ mục cho bảng `tbl_sanpham`
 --
 ALTER TABLE `tbl_sanpham`
@@ -264,16 +334,22 @@ ALTER TABLE `tbl_admin`
   MODIFY `id_admin` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT cho bảng `tbl_blog`
+--
+ALTER TABLE `tbl_blog`
+  MODIFY `id_blog` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
 -- AUTO_INCREMENT cho bảng `tbl_cart_items`
 --
 ALTER TABLE `tbl_cart_items`
-  MODIFY `cart_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `cart_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 
 --
 -- AUTO_INCREMENT cho bảng `tbl_chitietdonhang`
 --
 ALTER TABLE `tbl_chitietdonhang`
-  MODIFY `id_order_detail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_order_detail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT cho bảng `tbl_dangky`
@@ -291,13 +367,19 @@ ALTER TABLE `tbl_danhmuc`
 -- AUTO_INCREMENT cho bảng `tbl_donhang`
 --
 ALTER TABLE `tbl_donhang`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT cho bảng `tbl_giohang`
 --
 ALTER TABLE `tbl_giohang`
   MODIFY `id_giohang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT cho bảng `tbl_lienhe`
+--
+ALTER TABLE `tbl_lienhe`
+  MODIFY `id_lienhe` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT cho bảng `tbl_sanpham`

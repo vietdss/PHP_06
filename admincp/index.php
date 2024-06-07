@@ -46,10 +46,10 @@
         ?>
   
 </div>
-
 <script src="plugins/jquery/jquery.min.js"></script>
 
 <script src="plugins/jquery-ui/jquery-ui.min.js"></script>
+
 <script>
   $.widget.bridge('uibutton', $.ui.button)
 </script>
@@ -67,5 +67,9 @@
 <script src="dist/js/adminlte.js"></script>
 <script src="dist/js/demo.js"></script>
 <script src="dist/js/pages/dashboard.js"></script>
+<script src="https://cdn.ckeditor.com/4.22.1/standard/ckeditor.js"></script>
+<script>
+                        CKEDITOR.replace( 'noidung' );
+                </script>
 </body>
 </html>

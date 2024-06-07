@@ -1,5 +1,6 @@
 
     <?php
+    
         if(isset($_GET['action'])){
             $action = $_GET['action'];
         }
@@ -32,5 +33,17 @@
         }
         if($action == "capnhatdanhmuc"){
             include("modules/quanlydanhmuc/edit.php");
+        }
+        if($action == "quanlybaiviet"){
+            include("modules/quanlybaiviet/index.php");
+        }
+        if($action == "capnhatbaiviet"){
+            include("quanlybaiviet/edit.php");
+        }
+        if($action == "thembaiviet"){
+            include("quanlybaiviet/add.php");
+        }
+        if($action == "quanlylienhe"){
+            include("quanlylienhe/index.php");
         }
     ?>

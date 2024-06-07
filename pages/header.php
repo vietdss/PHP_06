@@ -18,7 +18,7 @@ $result_chitiet = $conn->query($sql_chitiet);
     .search {
         position: relative;
         box-shadow: 0 0 40px rgba(51, 51, 51, .1);
-        
+
     }
 
     .search input {
@@ -48,7 +48,7 @@ $result_chitiet = $conn->query($sql_chitiet);
     }
 
     .search button {
-       
+
         position: absolute;
         top: 5px;
         right: 5px;
@@ -73,7 +73,6 @@ $result_chitiet = $conn->query($sql_chitiet);
                         <ul class="top_nav_menu">
 
                             <!-- Currency / Language / My Account -->
-
 
 
                             <li class="account">
@@ -113,39 +112,48 @@ $result_chitiet = $conn->query($sql_chitiet);
 
     <!-- Main Navigation -->
     <div class="main_nav_container">
-			<div class="container">
-				<div class="row">
-					<div class="col-lg-12 text-right">
-						<div class="logo_container">
-                        <a href="index.php">colo<span>shop</span></a>
-						</div>
-						<nav class="navbar">
-							<ul class="navbar_menu">
-								<li><form method="get" action="product_search.php" style="display: flex;">
-                            <input class="form-control mr-sm-2" type="text" name="query" placeholder="Search">
-                            <button style=" background-color: #fe4c50; border: none; cursor: pointer;" class="btn btn-success my-2 my-sm-0" type="submit">Search</button>
-                        </form></li>
-								
-							</ul>
-							<ul class="navbar_user">
-								
-								<li><a href="#"><i class="fa fa-user" aria-hidden="true"></i></a></li>
-                                <li class="checkout">
-                                <a href="cart.php">
-                                    <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                                    <span id="checkout_items" class="checkout_items"><?php echo $result_chitiet->num_rows ?></span>
-                                </a>
-                            </li>
-							</ul>
-							<div class="hamburger_container">
-								<i class="fa fa-bars" aria-hidden="true"></i>
-							</div>
-						</nav>
-					</div>
-				</div>
-			</div>
-		</div>
-   
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-right">
+                <div class="logo_container">
+                    <a href="index.php">colo<span>shop</span></a>
+                </div>
+                <nav class="navbar">
+                <ul id="menu-container" class="navbar_menu">
+                        <li><a href="index.php">home</a></li>
+                        <li><a href="product_categories.php">shop</a></li>
+                        <li><a href="list_blog.php">blog</a></li>
+                        <li><a href="contact.php">contact</a></li>
+                    </ul>
+                    <ul class="navbar_menu">
+                        <li id="search-form-container" style="display: none;">
+                            <form id="search-form" method="get" action="product_search.php" style="display: flex;">
+                                <input class="form-control mr-sm-2" type="text" name="query" placeholder="Search">
+                                <button style="background-color: #fe4c50; border: none; cursor: pointer;" class="btn btn-success my-2 my-sm-0" type="submit">Search</button>
+                            </form>
+                        </li>
+                    </ul>
+                    
+                    <ul class="navbar_user">
+                        <li><a href="#" id="search-icon"><i class="fa fa-search" aria-hidden="true"></i></a></li>
+                        <li><a href="profile_user.php"><i class="fa fa-user" aria-hidden="true"></i></a></li>
+                        <li class="checkout">
+                            <a href="cart.php">
+                                <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                                <span id="checkout_items" class="checkout_items"><?php echo $result_chitiet->num_rows ?></span>
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="hamburger_container">
+                        <i class="fa fa-bars" aria-hidden="true"></i>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 </header>
 
 <div class="fs_menu_overlay"></div>
@@ -196,3 +204,15 @@ $result_chitiet = $conn->query($sql_chitiet);
         </ul>
     </div>
 </div>
+<script>
+document.getElementById('search-icon').addEventListener('click', function(event) {
+    event.preventDefault();
+    var searchFormContainer = document.getElementById('search-form-container');
+    if (searchFormContainer.style.display === 'none' || searchFormContainer.style.display === '') {
+        searchFormContainer.style.display = 'block';
+    } else {
+        searchFormContainer.style.display = 'none';
+    }
+    
+});
+</script>

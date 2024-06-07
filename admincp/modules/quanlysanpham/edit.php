@@ -16,6 +16,12 @@ $tmpName = $_FILES['hinhanh']['tmp_name'];
 
 $sanpham = "SELECT*FROM tbl_sanpham WHERE id_sanpham='$_GET[idsanpham]' LIMIT 1";
 $result = $conn->query($sanpham);
+if (isset($_POST["quaylai"])) {
+    echo "
+    <script>
+    window.location.href='./index.php?action=quanlysanpham';
+    </script>";
+  }
 if (isset($_POST["capnhatsanpham"])) {
     $newFileName = basename($fileName);
     $targetPath = '../images/' . $newFileName;
@@ -33,8 +39,10 @@ if (isset($_POST["capnhatsanpham"])) {
     noidung='" . $noidung . "',trangthai='" . $hienthi . "',id_danhmuc='" . $danhmuc . "' WHERE id_sanpham='$_GET[idsanpham]'";
     }
     $conn->query($sql);
-    header('Location:../../index.php?action=quanlysanpham');
-}
+    echo "
+    <script>
+    window.location.href='./index.php?action=quanlysanpham';
+    </script>";}
 
 
 
@@ -46,7 +54,7 @@ if (isset($_POST["capnhatsanpham"])) {
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Quản lý danh mục</h1>
+                    <h1>Quản lý sản phẩm</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -150,7 +158,8 @@ if (isset($_POST["capnhatsanpham"])) {
                                     </select>
 
                                 </div>
-                       
+                                <button type="submit" class="btn btn-danger" name="quaylai">Quay lại</button>
+
                                 <button type="submit" class="btn btn-primary" name="capnhatsanpham">Submit</button>
                         </form>
                     <?php       }

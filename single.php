@@ -117,11 +117,9 @@ $single = $query_single->fetch_assoc();
 
 
 
-								<?php if ($row['soluong'] > 0) { ?>
+								
 								<button name="themgiohang" type="submit" style="border: none;" class="red_button add_to_cart_button" onclick="confirmAddToCart(event)"><a>add to cart</a></button>
-							<?php } else { ?>
-								<div class="">Sản phẩm hết hàng</div>
-							<?php } ?>
+						
 								</div>
 							</div>
 						</div>

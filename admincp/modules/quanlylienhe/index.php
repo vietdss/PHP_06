@@ -1,6 +1,6 @@
 <?php
 include("./config/connect.php");
-$sql = "SELECT * FROM tbl_dangky ORDER BY id_khachhang DESC";
+$sql = "SELECT * FROM tbl_lienhe ORDER BY id_lienhe DESC";
 $result = $conn->query($sql);
 
 ?>
@@ -11,12 +11,12 @@ $result = $conn->query($sql);
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Quản lý người dùng</h1>
+            <h1>Quản lý liên hệ</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-              <li class="breadcrumb-item active">Quản lý đơn hàng</li>
+              <li class="breadcrumb-item active">Quản lý liên hệ</li>
             </ol>
           </div>
         </div>
@@ -29,7 +29,7 @@ $result = $conn->query($sql);
       <!-- Default box -->
       <div class="card">
         <div class="card-header">
-          <h3 class="card-title">Danh sách người dùng</h3>
+          <h3 class="card-title">Danh sách liên hệ</h3>
           <div class="card-tools">
             </div> 
          
@@ -41,10 +41,8 @@ $result = $conn->query($sql);
                     <tr>
                         <td>ID</td>
                         <td>Tên khách hàng</td>
-                        <td>Tài khoản</td>
-                        <td>Mật khẩu</td>
-                        <td>Số điện thoại</td>
                         <td>Email</td>
+                        <td>Liên hệ</td>
                         <td></td>
                     </tr>
 
@@ -53,14 +51,12 @@ $result = $conn->query($sql);
                 <?php                
                 foreach ($result as $row) {?>
                     <tr>
-                    <td><?php echo $row['id_khachhang']?></td>
-                    <td><?php echo $row['hovaten']?></td>
-                    <td><?php echo $row['taikhoan']?></td>
-                    <td><?php echo $row['matkhau']?></td>
-                    <td><?php echo $row['sodienthoai']?></td>
+                    <td><?php echo $row['id_lienhe']?></td>
+                    <td><?php echo $row['name']?></td>
                     <td><?php echo $row['email']?></td>
+                    <td><?php echo $row['message']?></td>
                     <td>
-                    <a onclick="xoa(<?php echo $row['id_khachhang']?>)" href="#" class='btn btn-sm btn-danger btnDelete'>Xóa</a>
+                    <a onclick="xoa(<?php echo $row['id_lienhe']?>)" href="#" class='btn btn-sm btn-danger btnDelete'>Xóa</a>
                     </td>
                     </tr>
                 <?php
@@ -90,9 +86,9 @@ $result = $conn->query($sql);
 <script src="../../dist/js/demo.js"></script>
 
 <script>
-    function xoa(id_khachhang){
-        if(confirm("Bạn có đồng ý xóa người dùng này không?")){
-            window.location.href='modules/quanlynguoidung/delete.php?id_khachhang='+id_khachhang;
+    function xoa(id_lienhe){
+        if(confirm("Bạn có đồng ý xóa liên hệ này không?")){
+            window.location.href='modules/quanlylienhe/delete.php?id_lienhe='+id_lienhe;
             return true;
         }
         else{

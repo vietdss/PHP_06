@@ -12,7 +12,12 @@ $fileType = $_FILES['hinhanh']['type'];
 $fileName = $_FILES['hinhanh']['name'];
 $tmpName = $_FILES['hinhanh']['tmp_name'];
 
-
+if (isset($_POST["quaylai"])) {
+    echo "
+    <script>
+    window.location.href='./index.php?action=quanlysanpham';
+    </script>";
+  }
 if (isset($_POST["themsanpham"])) {
     $newFileName = basename($fileName);
     $targetPath = '../images/' . $newFileName;
@@ -21,14 +26,18 @@ if (isset($_POST["themsanpham"])) {
         $sql = "INSERT INTO tbl_sanpham(tensanpham,masanpham,giasanpham,soluong,hinhanh,tomtat,noidung,trangthai,id_danhmuc) 
     VALUE ('" . $tensanpham . "','" . $masanpham . "','" . $giasanpham . "','" . $soluong . "','" . $fileName . "','" . $tomtat . "','" . $noidung . "'," . $hienthi . ",'" . $danhmuc . "')";
         $conn->query($sql);
-        header('Location:../../index.php');
-    } else {
+        echo "
+        <script>
+        window.location.href='./index.php?action=quanlysanpham';
+        </script>";    } else {
         $hinhanh = '';
         $sql = "INSERT INTO tbl_sanpham(tensanpham,masanpham,giasanpham,soluong,hinhanh,tomtat,noidung,trangthai,id_danhmuc) 
                 VALUE ('" . $tensanpham . "','" . $masanpham . "','" . $giasanpham . "','" . $soluong . "','" . $hinhanh . "','" . $tomtat . "','" . $noidung . "'," . $hienthi . ",'" . $danhmuc . "')";
         $conn->query($sql);
-        header('Location:../../index.php');
-    }
+        echo "
+        <script>
+        window.location.href='./index.php?action=quanlysanpham';
+        </script>";    }
 }
 
 ?>
@@ -39,7 +48,7 @@ if (isset($_POST["themsanpham"])) {
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Quản lý danh mục</h1>
+                    <h1>Quản lý sản phẩm</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -118,6 +127,8 @@ if (isset($_POST["themsanpham"])) {
                                     <option value="0">Cũ</option>
                                 </select>
                             </div>
+                            <button type="submit" class="btn btn-danger" name="quaylai">Quay lại</button>
+
                             <button type="submit" class="btn btn-primary" name="themsanpham">Submit</button>
                     </div>
                     </form>

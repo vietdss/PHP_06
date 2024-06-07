@@ -1,7 +1,7 @@
 <?php
 include("./config/connect.php");
 
-$sql = "SELECT * FROM tbl_sanpham ,tbl_danhmuc WHERE tbl_sanpham.id_danhmuc=tbl_danhmuc.id_danhmuc ORDER BY id_sanpham DESC";
+$sql = "SELECT * FROM tbl_blog  ORDER BY id_blog DESC";
 $result = $conn->query($sql);
 
 
@@ -14,12 +14,12 @@ $result = $conn->query($sql);
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1>Quản lý sản phẩm</h1>
+          <h1>Quản lý bài viết</h1>
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-            <li class="breadcrumb-item active">Quản lý sản phẩm</li>
+            <li class="breadcrumb-item active">Quản lý bài viết</li>
           </ol>
         </div>
       </div>
@@ -32,9 +32,9 @@ $result = $conn->query($sql);
     <!-- Default box -->
     <div class="card">
       <div class="card-header">
-        <h3 class="card-title">Danh sách sản phẩm</h3>
+        <h3 class="card-title">Danh sách bài viết</h3>
         <div class="card-tools">
-          <a href="index.php?action=themsanpham" class="btn btn-primary">Thêm mới</a>
+          <a href="index.php?action=thembaiviet" class="btn btn-primary">Thêm mới</a>
         </div>
 
       </div>
@@ -44,13 +44,10 @@ $result = $conn->query($sql);
             <thead>
               <tr>
                 <td>ID</td>
-                <td>Tên sản phẩm</td>
+                <td>Tiêu đề</td>
                 <td>Hình ảnh </td>
-                <td>Giá sản phẩm</td>
-                <td>Số lượng</td>
-                <td>Danh mục</td>
                 <td>Tóm tắt</td>
-                <td>Trạng thái</td>
+                <td>Ngày đăng</td>           
                 <td>Quản lý</td>
               </tr>
 
@@ -60,20 +57,15 @@ $result = $conn->query($sql);
 
               foreach ($result as $row) {
               ?><tr>
-                  <td><?php echo $row['id_sanpham'] ?></td>
-                  <td><?php echo $row['tensanpham'] ?></td>
-                  <td><img  src='../images/<?php echo $row['hinhanh']?>' width='50'></td>
-                  <td><?php echo $row['giasanpham'] ?></td>
-                  <td><?php echo $row['soluong'] ?></td>
-                  <td><?php echo $row['tendanhmuc'] ?></td>
+                  <td><?php echo $row['id_blog'] ?></td>
+                  <td><?php echo $row['tieude'] ?></td>
+                  <td><img  src='../images/<?php echo $row['hinhanhblog']?>' width='50'></td>
                   <td><?php echo $row['tomtat'] ?></td>
-                  <td><?php if ($row['trangthai'] == 1) echo "Mới";
-                      else {
-                        echo "Cũ";
-                      } ?></td>
+                  <td><?php echo $row['ngaydang'] ?></td>
+                  
                   <td>
-                    <a href="?action=capnhatsanpham&idsanpham=<?php echo $row['id_sanpham'] ?>" class='btn btn-sm btn-primary'>Sửa</a>
-                    <a onclick="xoa(<?php echo $row['id_sanpham'] ?>)" href="#" class='btn btn-sm btn-danger btnDelete'>Xóa</a>
+                    <a href="?action=capnhatbaiviet&idbaiviet=<?php echo $row['id_blog'] ?>" class='btn btn-sm btn-primary'>Sửa</a>
+                    <a onclick="xoa(<?php echo $row['id_blog'] ?>)" href="#" class='btn btn-sm btn-danger btnDelete'>Xóa</a>
                   </td>
                 </tr>
               <?php
@@ -93,6 +85,7 @@ $result = $conn->query($sql);
   <!-- /.content -->
 </div>
 
+
 <!-- jQuery -->
 <script src="../../plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
@@ -102,9 +95,9 @@ $result = $conn->query($sql);
 <!-- AdminLTE for demo purposes -->
 <script src="../../dist/js/demo.js"></script>
 <script>
-    function xoa(idsanpham){
-        if(confirm("Bạn có đồng ý xóa sản phẩm này không?")){
-            window.location.href='modules/quanlysanpham/delete.php?idsanpham='+idsanpham;
+    function xoa(idbaiviet){
+        if(confirm("Bạn có đồng ý xóa bài viết này không?")){
+            window.location.href='modules/quanlybaiviet/delete.php?idbaiviet='+idbaiviet;
             return true;
         }
         else{

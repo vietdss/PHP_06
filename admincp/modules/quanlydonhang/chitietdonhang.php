@@ -15,7 +15,7 @@ $result = $conn->query($sql);
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="index.php">Home</a></li>
+            <li class="breadcrumb-item"><a href="./index.php?action=quanlydonhang">Quản lý đơn hàng</a></li>
               <li class="breadcrumb-item active">Chi tiết đơn hàng</li>
             </ol>
           </div>

@@ -11,7 +11,7 @@ $result = $conn->query($sql);
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Quản lý danh mục</h1>
+            <h1>Quản lý đơn hàng</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -95,7 +95,7 @@ $result = $conn->query($sql);
 
 <script>
     function xoa(order_id){
-        if(confirm("Bạn có đồng ý xóa nhân viên này không")){
+        if(confirm("Bạn có đồng ý hủy đơn hàng này không?")){
             window.location.href='modules/quanlydonhang/delete.php?order_id='+order_id;
             return true;
         }

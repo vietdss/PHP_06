@@ -87,7 +87,7 @@ $result = $conn->query($sql);
 
 <script>
     function xoa(iddanhmuc){
-        if(confirm("Bạn có đồng ý xóa nhân viên này không")){
+        if(confirm("Bạn có đồng ý xóa danh mục này không?")){
             window.location.href='modules/quanlydanhmuc/delete.php?idsanpham='+iddanhmuc;
             return true;
         }

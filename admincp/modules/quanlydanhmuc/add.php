@@ -7,7 +7,12 @@ $fileType = $_FILES['hinhanh']['type'];
 $fileName = $_FILES['hinhanh']['name'];
 $tmpName = $_FILES['hinhanh']['tmp_name'];
 
-
+if (isset($_POST["quaylai"])) {
+  echo "
+  <script>
+  window.location.href='./index.php?action=quanlydanhmuc';
+  </script>";
+}
 if (isset($_POST["them"])) {
   $newFileName = basename($fileName);
   $targetPath = '../images/' . $newFileName;
@@ -15,12 +20,18 @@ if (isset($_POST["them"])) {
     move_uploaded_file($tmpName, $targetPath);
     $sql = "INSERT INTO tbl_danhmuc(tendanhmuc,banner) VALUE('" . $tendanhmuc . "','" . $fileName . "');";
     $conn->query($sql);
-    header('Location:../../index.php?action=quanlydanhmuc');
+    echo "
+  <script>
+  window.location.href='./index.php?action=quanlydanhmuc';
+  </script>";
   } else {
     $hinhanh = '';
     $sql = "INSERT INTO tbl_danhmuc(tendanhmuc,banner) VALUE('" . $tendanhmuc . "','" . $hinhanh . "');";
     $conn->query($sql);
-    header('Location:../../index.php?action=quanlydanhmuc');
+    echo "
+  <script>
+  window.location.href='./index.php?action=quanlydanhmuc';
+  </script>";
   }
 }
 ?>
@@ -66,6 +77,8 @@ if (isset($_POST["them"])) {
                 <label>Hình ảnh</label>
                 <input type="file" name="hinhanh" class="">
               </div>
+              <button type="submit" class="btn btn-danger" name="quaylai">Quay lại</button>
+
               <button type="submit" class="btn btn-primary" name="them">Submit</button>
           </div>
           </form>

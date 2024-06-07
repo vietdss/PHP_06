@@ -9,6 +9,12 @@ $id = $_GET['id_danhmuc'];
 
 $danhmuc = "SELECT * FROM tbl_danhmuc WHERE id_danhmuc=$id LIMIT 1";
 $result = $conn->query($danhmuc);
+if (isset($_POST["quaylai"])) {
+  echo "
+  <script>
+  window.location.href='./index.php?action=quanlydanhmuc';
+  </script>";
+}
 if (isset($_POST["capnhatdanhmuc"])) {
   $newFileName = basename($fileName);
   $targetPath = '../images/' . $newFileName;
@@ -22,7 +28,10 @@ if (isset($_POST["capnhatdanhmuc"])) {
     $sql = "UPDATE tbl_danhmuc SET tendanhmuc='" . $tendanhmuc . "',banner='" . $fileName . "' WHERE id_danhmuc=$id";
   }
   $conn->query($sql);
-  header('Location:../../index.php?action=quanlydanhmuc');
+  echo "
+  <script>
+  window.location.href='./index.php?action=quanlydanhmuc';
+  </script>";
 }
 ?>
 
@@ -72,6 +81,8 @@ if (isset($_POST["capnhatdanhmuc"])) {
                   <label>Hình ảnh</label>
                   <input type='file' name='hinhanh'>
                 </div>
+                <button type="submit" class="btn btn-danger" name="quaylai">Quay lại</button>
+
                 <button type='submit' class='btn btn-primary' name='capnhatdanhmuc'>Cập nhật</button>
               <?php
               }
