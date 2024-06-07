@@ -109,7 +109,7 @@ $single = $query_single->fetch_assoc();
 									<p><?php echo "$single[tomtat]" ?></p>
 								</div>
 
-								<div class="product_price"><?php echo "$single[giasanpham]" ?></div>
+								<div class="product_price"><?php echo "$single[giasanpham]" ?>$</div>
 
 								<div class="quantity_max1" hidden="true"><?php echo $single['soluong'] ?></div>
 
@@ -118,7 +118,7 @@ $single = $query_single->fetch_assoc();
 
 
 								
-								<button name="themgiohang" type="submit" style="border: none;" class="red_button add_to_cart_button" onclick="confirmAddToCart(event)"><a>add to cart</a></button>
+								<button style="margin-left: 0px;border: none;" name="themgiohang" type="submit" style="border: none;" class="red_button add_to_cart_button" onclick="confirmAddToCart(event)"><a>add to cart</a></button>
 						
 								</div>
 							</div>

@@ -161,9 +161,9 @@ if (isset($_POST['thanhtoan'])) {
 										<li class="list-group-item d-flex justify-content-between lh-condensed">
 											<div>
 												<h6 class="my-0"><?php echo $row_sanpham['tensanpham'] ?></h6>
-												<small class="text-muted"><?php echo $row_sanpham['giasanpham'] ?> x <?php echo $row['soluongmua'] ?></small>
+												<small class="text-muted"><?php echo $row_sanpham['giasanpham'] ?>$ x <?php echo $row['soluongmua'] ?></small>
 											</div>
-											<span class="text-muted"><?php echo $row['gia'] ?></span>
+											<span class="text-muted"><?php echo $row['gia'] ?>$</span>
 										</li>
 									<?php
 									}
@@ -173,7 +173,7 @@ if (isset($_POST['thanhtoan'])) {
 
 									<li class="list-group-item d-flex justify-content-between">
 										<span>Tổng thành tiền</span>
-										<strong><?php echo $tong ?></strong>
+										<strong><?php echo $tong ?>$</strong>
 									</li>
 								</ul>
 

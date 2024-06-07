@@ -174,7 +174,7 @@ $query_show_sanpham = $conn->query($sql_show_sanpham);
 														<div class="favorite favorite_left"></div>
 														<div class="product_info">
 															<h6 class="product_name"><a href="single.php?id_sanpham=<?php echo $row['id_sanpham'] ?>"><?php echo $row['tensanpham'] ?></a></h6>
-															<div class="product_price"><?php echo $row['giasanpham'] ?></div>
+															<div class="product_price"><?php echo $row['giasanpham'] ?>$</div>
 														</div>
 													</div>
 													<?php if ($row['soluong'] > 0) { ?>

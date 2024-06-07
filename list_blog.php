@@ -83,26 +83,27 @@ $row = $result->fetch_assoc();
 
 
                     <div class="container">
-                        <div class="col-md-9 list-news article-list" id="ap_grid-data">
                             <?php
                             foreach($result as $row){
                             ?>
-                            <div class="news-item">
+                            <div class="container" style="display: flex;margin-bottom: 50px;">
+                            <div style="background-image: url('images/<?php echo $row['hinhanhblog']?>'); flex: 1.9; margin-right: 15px;">
+                            </div>
+                            <div class="news-item" style="flex: 3.5;">
                                 <div class="news-content">
                                     <h3><?php echo $row['tieude']?></h3><span class="news-post"><?php echo $row['ngaydang']?></span>
                                     <p class="short-description"><?php echo $row['tomtat']?></p>
                                     <a class="btn btn-primary" href="blog_detail.php?idblog=<?php echo $row['id_blog']?>">Xem thêm</a>
                                 </div>
                             </div>
+                            </div>
                             <?php
                             }
                             ?>
 
-                        </div>
                     </div>
 
                     <?php
-                    include("pages/benefit.php");
                     include("pages/newsletter.php");
                     include("pages/footer.php");
                     ?>

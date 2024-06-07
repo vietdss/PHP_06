@@ -120,16 +120,16 @@ $result_chitiet = $conn->query($sql_chitiet);
                             $tongcong += $cart_item['gia'];
                         ?>
                             <tr>
-                                <td><?php echo $row_sanpham['tensanpham'] ?></td>
+                                <td style="max-width: 350px;"><?php echo $row_sanpham['tensanpham'] ?></td>
                                 <td><img src='images/<?php echo $row_sanpham['hinhanh'] ?>' width='50'></td>
-                                <td><?php echo $row_sanpham['giasanpham'] ?></td>
+                                <td><?php echo $row_sanpham['giasanpham'] ?>$</td>
                                 <td>
                                     <div class="quantity_max1" hidden="true"><?php echo $row['soluongmua'] ?></div>
                                     <a class="minus1" href="cart/edit.php?tru=<?php echo $cart_item['id_sanpham'] ?>"><i class="fa fa-minus" aria-hidden="true"></i></a>
                                     <form style="display: inline" action="cart/edit.php?id_sanpham=<?php echo $cart_item['id_sanpham'] ?>" method="post"><span id="quantity_value1"><input type="text" name="sl_input" style="width: 25px; text-align: center; border: none;" value="<?php echo $cart_item['soluongmua'] ?>"> </span></form>
                                     <a class="plus1" href="cart/edit.php?cong=<?php echo $cart_item['id_sanpham'] ?>"><i class="fa fa-plus" aria-hidden="true"></i></a>
                                 </td>
-                                <td><?php echo $cart_item['gia'] ?></td>
+                                <td><?php echo $cart_item['gia'] ?>$</td>
                                 <td>
                                     <a onclick="xoa(<?php echo $cart_item['id_sanpham'] ?>)" href="#" class='btn btn-sm btn-danger btnDelete'>Xóa</a>
                                 </td>
@@ -138,7 +138,7 @@ $result_chitiet = $conn->query($sql_chitiet);
                         <?php
                         } ?>
                         <tr>
-                            <td>Tổng cộng:<?php echo $tongcong ?></td>
+                            <td>Tổng cộng:<?php echo $tongcong ?>$</td>
                             <td><a onclick="xoahet()" href="#">Xóa tất cả</a></td>
                             <td><a href="checkout.php">Đặt hàng</a></td>
                         </tr><?php
