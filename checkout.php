@@ -216,7 +216,7 @@ if (isset($_POST['thanhtoan'])) {
 						
 								<hr class="mb-4">
 								<button class="btn btn-primary btn-lg btn-block" type="submit" name="thanhtoan">Thanh toán bằng MoMo</button>
-								<button class="btn btn-primary btn-lg btn-block" type="submit" name="thanhtoan">Thanh toán trưc tiếp</button>
+								<button class="btn btn-primary btn-lg btn-block" type="submit" name="thanhtoantructiep">Thanh toán trưc tiếp</button>
 
 							</div>
 						</div>

@@ -48,8 +48,7 @@ if (isset($_POST['thanhtoan'])) {
 	}
 	$sql_xoa = "DELETE FROM tbl_cart_items WHERE id_giohang='$row_giohang[id_giohang]'";
 	$conn->query($sql_xoa);
-}
-function execPostRequest($url, $data)
+    function execPostRequest($url, $data)
 {
     $ch = curl_init($url);
     curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
@@ -131,6 +130,46 @@ if (!empty($_POST)) {
     } else {
         echo "Error: Unable to get the payment URL. " . (isset($jsonResult['message']) ? $jsonResult['message'] : 'Unknown error');
     }
+}
+}
+
+if (isset($_POST['thanhtoantructiep'])) {
+	$diachi = ''; // Khởi tạo biến địa chỉ
+
+	// Kiểm tra xem đã chọn tỉnh/thành phố và quận/huyện chưa
+	if (isset($_POST['city']) && isset($_POST['district'])) {
+		// Lấy giá trị của tỉnh/thành phố và quận/huyện
+		$city = $_POST['city'];
+		$district = $_POST['district'];
+
+		// Gán giá trị địa chỉ
+		$diachi = $city . ', ' . $district;
+
+		// Kiểm tra xem có chọn phường/xã không
+		if (isset($_POST['ward'])) {
+			$ward = $_POST['ward'];
+			// Nếu có, thêm phường/xã vào địa chỉ
+			$diachi .= ', ' . $ward;
+		}
+	}
+
+	$tonggia = 0;
+
+	foreach ($result_chitiet as $row) {
+		$tonggia += $row['gia'];
+	}
+
+
+	$sql_themdonhang = "INSERT INTO tbl_donhang (id_khachhang,tonggia,cart_payment,hoten,diachi,sdt,thoigian) VALUES ('$_SESSION[id_khachhang]','$tonggia', 'Tiền mặt','$_POST[hoten]','$diachi','$_POST[sdt]',NOW())";
+	$conn->query($sql_themdonhang);
+	$order_id = $conn->insert_id;
+	foreach ($result_chitiet as $row) {
+		$sql_themdonhangchitiet = "INSERT INTO tbl_chitietdonhang (id_order,id_sanpham,soluongmua) VALUES ('$order_id','$row[id_sanpham]','$row[soluongmua]')";
+		$conn->query($sql_themdonhangchitiet);
+	}
+	$sql_xoa = "DELETE FROM tbl_cart_items WHERE id_giohang='$row_giohang[id_giohang]'";
+	$conn->query($sql_xoa);
+    header('location:index.php');
 }
 ?>
 
