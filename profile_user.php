@@ -41,7 +41,7 @@ if (isset($_POST['luu'])) {
         $sql_update = "UPDATE tbl_dangky SET hovaten='$tenkhachhang', taikhoan='$taikhoan', matkhau='$matkhau', sodienthoai='$dienthoai', email='$email' WHERE id_khachhang='$_SESSION[id_khachhang]'";
         $query_update = $conn->query($sql_update);
         if ($query_update) {
-            echo '<script>alert("Cập nhật thành công"); window.location.href = "profile.php";</script>';
+            echo '<script>alert("Cập nhật thành công"); window.location.href = "profile_user.php";</script>';
         } else {
             echo '<script>alert("Cập nhật thất bại");</script>';
         }

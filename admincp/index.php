@@ -1,12 +1,13 @@
 <?php
-    session_start();
-    if(!isset($_SESSION['admin'])){
-        header('Location:login.php');
-    }
+session_start();
+if (!isset($_SESSION['admin'])) {
+  header('Location:login.php');
+}
 
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -33,43 +34,45 @@
   <!-- summernote -->
   <link rel="stylesheet" href="plugins/summernote/summernote-bs4.min.css">
 </head>
+
 <body class="hold-transition sidebar-mini layout-fixed">
-<div class="wrapper">
+  <div class="wrapper">
 
-<?php
-            session_start();
-            include("admincp/config/connect.php");
-            include("modules/header.php");
-			include("modules/menu.php");
-            include("modules/main.php");
-            
-        ?>
-  
-</div>
-<script src="plugins/jquery/jquery.min.js"></script>
+    <?php
+    session_start();
+    include("admincp/config/connect.php");
+    include("modules/header.php");
+    include("modules/menu.php");
+    include("modules/main.php");
 
-<script src="plugins/jquery-ui/jquery-ui.min.js"></script>
+    ?>
 
-<script>
-  $.widget.bridge('uibutton', $.ui.button)
-</script>
-<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="plugins/chart.js/Chart.min.js"></script>
-<script src="plugins/sparklines/sparkline.js"></script>
-<script src="plugins/jqvmap/jquery.vmap.min.js"></script>
-<script src="plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
-<script src="plugins/jquery-knob/jquery.knob.min.js"></script>
-<script src="plugins/moment/moment.min.js"></script>
-<script src="plugins/daterangepicker/daterangepicker.js"></script>
-<script src="plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
-<script src="plugins/summernote/summernote-bs4.min.js"></script>
-<script src="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
-<script src="dist/js/adminlte.js"></script>
-<script src="dist/js/demo.js"></script>
-<script src="dist/js/pages/dashboard.js"></script>
-<script src="https://cdn.ckeditor.com/4.22.1/standard/ckeditor.js"></script>
-<script>
-                        CKEDITOR.replace( 'noidung' );
-                </script>
+  </div>
+  <script src="plugins/jquery/jquery.min.js"></script>
+
+  <script src="plugins/jquery-ui/jquery-ui.min.js"></script>
+
+  <script>
+    $.widget.bridge('uibutton', $.ui.button)
+  </script>
+  <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="plugins/chart.js/Chart.min.js"></script>
+  <script src="plugins/sparklines/sparkline.js"></script>
+  <script src="plugins/jqvmap/jquery.vmap.min.js"></script>
+  <script src="plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
+  <script src="plugins/jquery-knob/jquery.knob.min.js"></script>
+  <script src="plugins/moment/moment.min.js"></script>
+  <script src="plugins/daterangepicker/daterangepicker.js"></script>
+  <script src="plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+  <script src="plugins/summernote/summernote-bs4.min.js"></script>
+  <script src="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+  <script src="dist/js/adminlte.js"></script>
+  <script src="dist/js/demo.js"></script>
+  <script src="dist/js/pages/dashboard.js"></script>
+  <script src="https://cdn.ckeditor.com/4.22.1/standard/ckeditor.js"></script>
+  <script>
+    CKEDITOR.replace('noidung');
+  </script>
 </body>
+
 </html>

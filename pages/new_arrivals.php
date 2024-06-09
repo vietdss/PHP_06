@@ -39,7 +39,10 @@ $query_show_new = $conn->query($sql_show_new);
 		}		
 		else{
 			?>
-			var userConfirmed = alert("Bạn cần đăng nhập để thêm vào giỏ hàng");	
+			if(confirm("Bạn cần đăng nhập để thêm vào giỏ hàng")){
+				window.location.href="./login.php";
+
+			}	
 		<?php
 		}?>
 			

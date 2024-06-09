@@ -1,4 +1,4 @@
-<?php
+<!-- <?php
 
 session_start();
 include("admincp/config/connect.php");
@@ -40,7 +40,7 @@ if (isset($_POST['thanhtoan'])) {
 	}
 
 
-	$sql_themdonhang = "INSERT INTO tbl_donhang (id_khachhang,tonggia,cart_payment,hoten,diachi,sdt,thoigian) VALUES ('$_SESSION[id_khachhang]','$tonggia', '$_POST[phuongthuc]','$_POST[hoten]','$diachi','$_POST[sdt]',NOW())";
+	$sql_themdonhang = "INSERT INTO tbl_donhang (id_khachhang,tonggia,cart_payment,hoten,diachi,sdt,thoigian) VALUES ('$_SESSION[id_khachhang]','$tonggia', 'Tiền mặt','$_POST[hoten]','$diachi','$_POST[sdt]',NOW())";
 	$conn->query($sql_themdonhang);
 	$order_id = $conn->insert_id;
 	foreach ($result_chitiet as $row) {
@@ -56,7 +56,7 @@ if (isset($_POST['thanhtoan'])) {
 
 
 
-?>
+?> -->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -136,7 +136,7 @@ if (isset($_POST['thanhtoan'])) {
             <div class="main_content">
                 
          
-					<form class="needs-validation" name="frmthanhtoan" method="post" action="#">
+					<form class="needs-validation" name="frmthanhtoan" method="post" action="checkout_momo.php">
 						<input type="hidden" name="kh_tendangnhap" value="dnpcuong">
 
 					
@@ -213,19 +213,11 @@ if (isset($_POST['thanhtoan'])) {
 
 								</div>
 
-								<h4 class="mb-3 my-3">Hình thức thanh toán</h4>
-								<div class=" col-md-12">
-									<div class="form-check col-md-12">
-										<input type="radio" class="form-check-input" id="radio1" name="phuongthuc" value="Tiền mặt" checked>
-										<label style="padding-left:0;" class="form-check-label" for="radio1">Tiền mặt</label>
-									</div>
-									<div class="form-check col-md-12">
-										<input type="radio" class="form-check-input" id="radio2" name="phuongthuc" value="Chuyển khoản">
-										<label style="padding-left:0;" class="form-check-label" for="radio2">Chuyển khoản</label>
-									</div>
-								</div>
+						
 								<hr class="mb-4">
-								<button class="btn btn-primary btn-lg btn-block" type="submit" name="thanhtoan">Thanh toán</button>
+								<button class="btn btn-primary btn-lg btn-block" type="submit" name="thanhtoan">Thanh toán bằng MoMo</button>
+								<button class="btn btn-primary btn-lg btn-block" type="submit" name="thanhtoan">Thanh toán trưc tiếp</button>
+
 							</div>
 						</div>
 					</form>
