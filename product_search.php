@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 include("admincp/config/connect.php");
 $category = isset($_GET['category']) ? $_GET['category'] : "All";
 
@@ -48,8 +50,20 @@ $query_show_sanpham = $conn->query($sql_show_sanpham);
 <script>
 	function confirmAddToCart(event) {
 		event.preventDefault();
-		var userConfirmed = alert("Sản phẩm đã được thêm vào giỏ hàng");
-		event.target.closest('form').submit();
+		<?php
+		if (isset($_SESSION['username'])) { ?>
+			var userConfirmed = alert("Sản phẩm đã được thêm vào giỏ hàng");
+			event.target.closest('form').submit();
+		<?php
+		} else {
+		?>
+			if (confirm("Bạn cần đăng nhập để thêm vào giỏ hàng")) {
+				window.location.href = "./login.php";
+
+			}
+		<?php
+		} ?>
+
 
 	}
 </script>
@@ -126,104 +140,104 @@ $query_show_sanpham = $conn->query($sql_show_sanpham);
 							<div class="filter_button"><span>filter</span></div>
 						</div>
 					</div>
-									
+
 					<!-- Main Content -->
 					<div class="main_content">
-					<?php
-					if($query_show_sanpham->num_rows>0){
+						<?php
+						if ($query_show_sanpham->num_rows > 0) {
 
-					?>
-						<!-- Products -->
-						<div class="products_iso">
-							<div class="row">
-								<div class="col">
+						?>
+							<!-- Products -->
+							<div class="products_iso">
+								<div class="row">
+									<div class="col">
 
-									<!-- Product Sorting -->
-									<div class="product_sorting_container product_sorting_container_top">
-										<ul class="product_sorting">
-											<li>
-												<span class="type_sorting_text">Default Sorting</span>
-												<i class="fa fa-angle-down"></i>
-												<ul class="sorting_type">
-													<li class="type_sorting_btn" data-isotope-option='{ "sortBy": "original-order" }'><span>Default Sorting</span></li>
-													<li class="type_sorting_btn" data-isotope-option='{ "sortBy": "price" }'><span>Price</span></li>
-													<li class="type_sorting_btn" data-isotope-option='{ "sortBy": "name" }'><span>Product Name</span></li>
-												</ul>
-											</li>
-										</ul>
-										<div class="pages d-flex flex-row align-items-center">
-											<div class="page_current">
-												<span><?php echo $current_page; ?></span>
-												<ul class="page_selection">
-													<?php for ($i = 1; $i <= $total_pages; $i++) { ?>
-														<li><a href="product_search.php?category=<?php echo $category; ?>&query=<?php echo $query ?>&page=<?php echo $i; ?>"><?php echo $i; ?></a></li>
-													<?php } ?>
-												</ul>
-											</div>
-											<div class="page_total"><span>of</span> <?php echo $total_pages; ?></div>
-											<?php if ($current_page < $total_pages) { ?>
-												<div id="next_page" class="page_next"><a href="product_search.php?category=<?php echo $category; ?>&query=<?php echo $query ?>&page=<?php echo $current_page + 1; ?>"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></a></div>
-											<?php } ?>
-										</div>
-									</div>
-
-									<!-- Product Grid -->
-
-									<div class="product-grid">
-										<?php foreach ($query_show_sanpham as $row) { ?>
-
-											<form action="cart/add.php?id_sanpham=<?php echo $row['id_sanpham'] ?>" method="post">
-												<div class="product-item <?php echo $row['tendanhmuc'] ?>">
-													<div class="product discount product_filter">
-														<div class="product_image">
-															<img src="images/<?php echo $row['hinhanh'] ?>" alt="">
-														</div>
-														<div class="favorite favorite_left"></div>
-														<div class="product_info">
-															<h6 class="product_name"><a href="single.php?id_sanpham=<?php echo $row['id_sanpham'] ?>"><?php echo $row['tensanpham'] ?></a></h6>
-															<div class="product_price"><?php echo $row['giasanpham'] ?>$</div>
-														</div>
-													</div>
-													<?php if ($row['soluong'] > 0) { ?>
-														<button name="themgiohang" type="submit" style="border: none;" class="red_button add_to_cart_button" onclick="confirmAddToCart(event)"><a>add to cart</a></button>
-													<?php } else { ?>
-														<div class="product_bubble product_bubble_right product_bubble_red d-flex flex-column align-items-center"><span>Hết</span></div>
-													<?php } ?>
+										<!-- Product Sorting -->
+										<div class="product_sorting_container product_sorting_container_top">
+											<ul class="product_sorting">
+												<li>
+													<span class="type_sorting_text">Default Sorting</span>
+													<i class="fa fa-angle-down"></i>
+													<ul class="sorting_type">
+														<li class="type_sorting_btn" data-isotope-option='{ "sortBy": "original-order" }'><span>Default Sorting</span></li>
+														<li class="type_sorting_btn" data-isotope-option='{ "sortBy": "price" }'><span>Price</span></li>
+														<li class="type_sorting_btn" data-isotope-option='{ "sortBy": "name" }'><span>Product Name</span></li>
+													</ul>
+												</li>
+											</ul>
+											<div class="pages d-flex flex-row align-items-center">
+												<div class="page_current">
+													<span><?php echo $current_page; ?></span>
+													<ul class="page_selection">
+														<?php for ($i = 1; $i <= $total_pages; $i++) { ?>
+															<li><a href="product_search.php?category=<?php echo $category; ?>&query=<?php echo $query ?>&page=<?php echo $i; ?>"><?php echo $i; ?></a></li>
+														<?php } ?>
+													</ul>
 												</div>
-											</form>
-										<?php } ?>
-									</div>
-
-									<!-- Product Sorting -->
-									<div class="product_sorting_container product_sorting_container_bottom clearfix">
-										<div class="pages d-flex flex-row align-items-center">
-											<div class="page_current">
-												<span><?php echo $current_page; ?></span>
-												<ul class="page_selection">
-													<?php for ($i = 1; $i <= $total_pages; $i++) { ?>
-														<li><a href="product_search.php?category=<?php echo $category; ?>&query=<?php echo $query ?>&page=<?php echo $i; ?>"><?php echo $i; ?></a></li>
-													<?php } ?>
-												</ul>
+												<div class="page_total"><span>of</span> <?php echo $total_pages; ?></div>
+												<?php if ($current_page < $total_pages) { ?>
+													<div id="next_page" class="page_next"><a href="product_search.php?category=<?php echo $category; ?>&query=<?php echo $query ?>&page=<?php echo $current_page + 1; ?>"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></a></div>
+												<?php } ?>
 											</div>
-											<div class="page_total"><span>of</span> <?php echo $total_pages; ?></div>
-											<?php if ($current_page < $total_pages) { ?>
-												<div id="next_page_1" class="page_next"><a href="product_search.php?category=<?php echo $category; ?>&query=<?php echo $query ?>&page=<?php echo $current_page + 1; ?>"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></a></div>
+										</div>
+
+										<!-- Product Grid -->
+
+										<div class="product-grid">
+											<?php foreach ($query_show_sanpham as $row) { ?>
+
+												<form action="cart/add.php?id_sanpham=<?php echo $row['id_sanpham'] ?>" method="post">
+													<div class="product-item <?php echo $row['tendanhmuc'] ?>">
+														<div class="product discount product_filter">
+															<div class="product_image">
+																<img src="images/<?php echo $row['hinhanh'] ?>" alt="">
+															</div>
+															<div class="favorite favorite_left"></div>
+															<div class="product_info">
+																<h6 class="product_name"><a href="single.php?id_sanpham=<?php echo $row['id_sanpham'] ?>"><?php echo $row['tensanpham'] ?></a></h6>
+																<div class="product_price"><?php echo $row['giasanpham'] ?>$</div>
+															</div>
+														</div>
+														<?php if ($row['soluong'] > 0) { ?>
+															<button name="themgiohang" type="submit" style="border: none;" class="red_button add_to_cart_button" onclick="confirmAddToCart(event)"><a>add to cart</a></button>
+														<?php } else { ?>
+															<div class="product_bubble product_bubble_right product_bubble_red d-flex flex-column align-items-center"><span>Hết</span></div>
+														<?php } ?>
+													</div>
+												</form>
 											<?php } ?>
 										</div>
-									</div>
 
+										<!-- Product Sorting -->
+										<div class="product_sorting_container product_sorting_container_bottom clearfix">
+											<div class="pages d-flex flex-row align-items-center">
+												<div class="page_current">
+													<span><?php echo $current_page; ?></span>
+													<ul class="page_selection">
+														<?php for ($i = 1; $i <= $total_pages; $i++) { ?>
+															<li><a href="product_search.php?category=<?php echo $category; ?>&query=<?php echo $query ?>&page=<?php echo $i; ?>"><?php echo $i; ?></a></li>
+														<?php } ?>
+													</ul>
+												</div>
+												<div class="page_total"><span>of</span> <?php echo $total_pages; ?></div>
+												<?php if ($current_page < $total_pages) { ?>
+													<div id="next_page_1" class="page_next"><a href="product_search.php?category=<?php echo $category; ?>&query=<?php echo $query ?>&page=<?php echo $current_page + 1; ?>"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></a></div>
+												<?php } ?>
+											</div>
+										</div>
+
+									</div>
 								</div>
 							</div>
-						</div>
-					<?php
-					}else{
-						
-					
-					?>
-					<h3>Không tìm thấy sản phẩm nào</h3>
-					<?php
-					}
-					?>
+						<?php
+						} else {
+
+
+						?>
+							<h3>Không tìm thấy sản phẩm nào</h3>
+						<?php
+						}
+						?>
 					</div>
 				</div>
 			</div>

@@ -20,6 +20,10 @@
 <div class="super_container">
 		<?php
             session_start();
+			if (isset($_SESSION['success_message'])) {
+				echo '<div class="alert alert-success">' . $_SESSION['success_message'] . '</div>';
+				unset($_SESSION['success_message']);
+			}
             include("admincp/config/connect.php");
             include("pages/header.php");
 			include("pages/slider.php");

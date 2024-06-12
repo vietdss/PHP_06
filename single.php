@@ -1,5 +1,6 @@
 <?php
 include("admincp/config/connect.php");
+            session_start();
 
 $sql_single = "SELECT * FROM tbl_sanpham ,tbl_danhmuc WHERE tbl_sanpham.id_danhmuc=tbl_danhmuc.id_danhmuc AND tbl_sanpham.id_sanpham=$_GET[id_sanpham] LIMIT 1";
 $query_single = $conn->query($sql_single);
@@ -27,8 +28,21 @@ $single = $query_single->fetch_assoc();
 <script>
 	function confirmAddToCart(event) {
 		event.preventDefault();
-		var userConfirmed = alert("Sản phẩm đã được thêm vào giỏ hàng");		
+		<?php
+		if(isset($_SESSION['username'])){ ?>
+		var userConfirmed = alert("Sản phẩm đã được thêm vào giỏ hàng");
 		event.target.closest('form').submit();
+		<?php
+		}		
+		else{
+			?>
+			if(confirm("Bạn cần đăng nhập để thêm vào giỏ hàng")){
+				window.location.href="./login.php";
+
+			}	
+		<?php
+		}?>
+			
 	
 	}
 </script>

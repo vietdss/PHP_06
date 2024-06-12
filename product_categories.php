@@ -1,4 +1,6 @@
 <?php
+            session_start();
+
 include("admincp/config/connect.php");
 
 $sql_danhmuc = "SELECT * FROM tbl_danhmuc";
@@ -72,8 +74,21 @@ $query_show_sanpham = $conn->query($sql_show_sanpham);
 <script>
 	function confirmAddToCart(event) {
 		event.preventDefault();
-		var userConfirmed = alert("Sản phẩm đã được thêm vào giỏ hàng");		
+		<?php
+		if(isset($_SESSION['username'])){ ?>
+		var userConfirmed = alert("Sản phẩm đã được thêm vào giỏ hàng");
 		event.target.closest('form').submit();
+		<?php
+		}		
+		else{
+			?>
+			if(confirm("Bạn cần đăng nhập để thêm vào giỏ hàng")){
+				window.location.href="./login.php";
+
+			}	
+		<?php
+		}?>
+			
 	
 	}
 </script>
